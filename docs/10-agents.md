@@ -164,6 +164,16 @@ A change that removes or renames a field raises `schemaVersion`. New fields can 
 | Size limits: 1 MB message (dropped as soon as the cap is passed), 500 lines, 100,000 characters. The CLI reads with the same cap and rejects devices and directories. | A large request, or a line that never ends, must not exhaust the host (P-40). | `mcp/server.js`, `cli/bunker.js`, `src/parse.js` |
 | stdout carries protocol messages only. | Any other text breaks the stdio protocol. | `mcp/server.js` |
 
+## Known limits for agent use
+
+Bunker is safe to call, but three things are outside its control. We state them so that users and agent builders know where the line is.
+
+**1. The agent has already seen what the user typed.** A user can paste a seed phrase into a chat, and the agent can pass it to Bunker. Bunker refuses it and never repeats it. But the secret is already in the agent's conversation, and maybe in the agent provider's logs. Bunker cannot erase it from there. Example: a user writes "check my wallet: abandon ability able ..." to an assistant. Bunker answers only "this looks like a seed phrase". The words stay in the chat history. What we do: the tool descriptions and the server instructions tell agents never to send secrets. The error tells the user that no real tool needs one. What the user should do: treat a seed phrase that was typed into any chat as exposed, and move the funds to a new wallet.
+
+**2. Bunker trusts the computer it runs on.** The server runs on the user's own machine with the user's permissions. Malware on that machine, such as a keylogger or a malicious editor extension, can read the input before Bunker does. No local tool can stop it. This is the same for every program on that machine. What we do: nothing on our side can fix a compromised machine, so we say it here and in the [threat model](security/threat-model.md).
+
+**3. There is no audit log, by choice.** Many security guides ask servers to log every tool call (OWASP MCP08). A log of Bunker's calls would be a list of addresses linked to one person: the exact data that Bunker exists to keep private. So the server logs only errors, without input, to standard error. The cost: after an incident, there is no record of what was scanned. We accept that cost. Privacy wins over investigation here. An organization that needs a record can keep it in its own agent platform, under its own policy.
+
 ## Why there is no web API
 
 A web API would receive the user's list of addresses. Each address is public, but a list of addresses linked to one requester shows who owns what. That is the privacy leak that Bunker exists to avoid. The local tools give agents the same answer with no server. See ADR-027.

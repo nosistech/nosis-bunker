@@ -83,3 +83,22 @@ Bunker 1.2.0 adds a CLI and an MCP server for AI agents. The decisions are in [A
 | LLM08 Vector and Embedding Weaknesses | No embeddings | Not applicable | |
 | LLM09 Misinformation | Yes | Disclaimer in every report; "educational, not advice" in the server instructions; `status: unknown` for anything not rated | `src/agent/report.js` |
 | LLM10 Unbounded Consumption | Yes | 1 MB message, 500 lines, 100,000 characters | `mcp/server.js`, `test/agent.test.js` |
+
+### OWASP MCP Top 10 (2025, beta)
+
+OWASP also keeps a list for MCP servers. It is in beta. This table maps the server to it. Two items are partial on purpose. The reasons are in [docs/10-agents.md](../10-agents.md#known-limits-for-agent-use).
+
+| Item | Status | Control in Bunker | Proof |
+|---|---|---|---|
+| MCP01 Token Mismanagement and Secret Exposure | Met | The server holds no tokens, passwords or keys. Secrets that users type are blocked and never logged or repeated. | `src/guard.js`, `test/agent.test.js` |
+| MCP02 Privilege Escalation via Scope Creep | Met | Two read-only tools. A test fails if the agent code imports network, shell or file-write modules. | `test/agent.test.js` |
+| MCP03 Tool Poisoning | Met | Plain descriptions, tested for invisible characters and steering phrases. Output has a fixed schema. | `mcp/tools.js`, `test/agent.test.js` |
+| MCP04 Software Supply Chain Attacks and Dependency Tampering | Met | No dependencies, no MCP SDK. CI downloads a pinned Node.js and checks its hash. | `test/supply-chain.test.js` |
+| MCP05 Command Injection and Execution | Met | The server runs nothing. Input is only read as text. | `mcp/server.js` |
+| MCP06 Intent Flow Subversion | Partial | Labels are cut to 40 characters, cleaned of invisible characters and marked as user data. Whether an agent obeys data is the agent's duty. | `src/parse.js`, `mcp/tools.js` |
+| MCP07 Insufficient Authentication and Authorization | Not applicable | stdio only: only the program that started the server on the same computer can talk to it. A network version would need authentication. | `mcp/server.js` |
+| MCP08 Lack of Audit and Telemetry | Partial, by choice | No log of inputs or results, because a log of addresses is a privacy risk. Errors are logged without input. | `mcp/server.js` |
+| MCP09 Shadow MCP Servers | Partial | The official source is this repository. There is no npm package to imitate. A copy from elsewhere cannot be trusted. | `README.md`, `llms.txt` |
+| MCP10 Context Injection and Over-Sharing | Met | No memory between calls. Each request stands alone. | `mcp/server.js` |
+
+The specification's own security guidance names four more risks: token passthrough, the confused deputy problem, session hijacking, and a local server open to the network. The server has no tokens, no permissions to lend, no sessions and no network port, so none of the four can happen.

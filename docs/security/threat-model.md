@@ -28,9 +28,11 @@ This document lists what can go wrong, who can cause it, and what the tool does 
 | T14 | The tool gets more power than it needs (excessive agency) | A server that can write files or reach the network | The CLI and the MCP server import no network, shell or file-write module; a test checks this; all tools are read-only (`readOnlyHint`) | None known. |
 | T15 | A fake Bunker MCP server | A package with a similar name steals data | The official source is this repository; the README and llms.txt name it | Users who install from another source. |
 | T16 | A large request exhausts the agent host | A message of many megabytes, or a line that never ends | The MCP server drops a line at 1 MB without holding it (P-40); the CLI reads at most the same and rejects devices and directories; 500 lines; 100,000 characters | None known. |
+| T17 | A secret reaches the agent before Bunker | A user pastes a seed phrase into a chat with an agent | Bunker refuses it and never repeats it; tool descriptions and server instructions tell agents never to send secrets | The secret is already in the agent's conversation and maybe in the provider's logs. Bunker cannot erase it. The user should move the funds. |
+| T18 | No record after an incident | Someone asks later what was scanned | None, by design: no input is logged, because a log of addresses is a privacy risk | No investigation trail. An organization can keep its own record in its agent platform. |
 
 ## Out of scope
 
-- Attacks on the user's device (malware, keyloggers). If the device is compromised, no web page can protect the user.
+- Attacks on the user's device (malware, keyloggers). If the device is compromised, no web page and no local tool, including the CLI and the MCP server, can protect the user. See [docs/10-agents.md](../10-agents.md#known-limits-for-agent-use).
 - Attacks on the blockchains themselves. The tool explains the risk. It does not change it.
 - Private bank networks with no public addresses. These need a review of the provider.
