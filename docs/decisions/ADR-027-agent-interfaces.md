@@ -36,7 +36,7 @@ People now ask AI agents to do work for them: "check my wallets", "which of my a
 | A. The official MCP TypeScript SDK | Full protocol support; less code to write | Adds npm dependencies, which breaks the zero-dependency rule (ADR-003) and its supply-chain protection (ADR-026) |
 | **B. About 150 lines of plain JSON-RPC over stdio** | Zero dependencies; easy to audit; only the parts that a read-only tool server needs | Must follow protocol changes by hand |
 
-**Chosen: B.** The server is "dual-era": it speaks the stateless revision 2026-07-28 (`server/discover`, per-request `_meta`, `resultType`, cache hints) and the handshake revisions 2025-11-25, 2025-06-18, 2025-03-26 and 2024-11-05. A request that names a version the server does not know gets the `UnsupportedProtocolVersion` error (`-32022`) with the supported list, as the specification requires.
+**Chosen: B.** The server is "dual-era": it speaks the stateless revision 2026-07-28 (`server/discover`, per-request `_meta`, `resultType`, cache hints) and the handshake revisions 2025-11-25 and 2025-06-18. A request that names a version the server does not know gets the `UnsupportedProtocolVersion` error (`-32022`) with the supported list, as the specification requires.
 
 ### The output shape
 
