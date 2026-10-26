@@ -1,0 +1,20 @@
+{
+  "name": "nosis-bunker",
+  "version": "1.2.1",
+  "description": "Offline scanner that shows which crypto addresses expose their public key, with a calm migration plan.",
+  "type": "module",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Carlos A. Paredes Vargas (NosisTech LLC)",
+  "engines": { "node": "^22.23.4 || ^24.22.1 || >=26.12.1" },
+  "scripts": {
+    "test": "node --test",
+    "build": "node tools/check-node.js && node tools/build.js && node tools/site.js",
+    "check": "node tools/check-node.js && node tools/build.js && node tools/site.js && node --test && node tools/check-style.js",
+    "check-links": "node tools/check-links.js"
+  },
+  "bin": {
+    "bunker": "cli/bunker.js",
+    "bunker-mcp": "mcp/server.js"
+  }
+}

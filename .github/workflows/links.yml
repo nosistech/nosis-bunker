@@ -1,0 +1,39 @@
+# Weekly explorer link check. Explorers change their URL formats, so we test every template.
+# See docs/decisions/ADR-014-explorer-links.md. No third-party actions. Read-only token.
+name: explorer-links
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  links:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Get the code (plain git, no third-party action)
+        env:
+          TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          git init -q .
+          # GitHub's git server takes the job token as Basic auth with the user name x-access-token.
+          # The header goes in through git's environment, not the command line, so it never shows in a process list.
+          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.extraheader
+          GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+          export GIT_CONFIG_VALUE_0
+          git fetch -q --depth 1 "https://github.com/$REPO" "$SHA"
+          git checkout -q FETCH_HEAD
+      - name: Install Node.js 24.22.1 (official build, SHA-256 pinned, no third-party action)
+        run: |
+          cd "$RUNNER_TEMP"
+          curl -fsSLO https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz
+          echo "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6  node-v24.22.1-linux-x64.tar.xz" | sha256sum -c -
+          tar -xJf node-v24.22.1-linux-x64.tar.xz
+          echo "$RUNNER_TEMP/node-v24.22.1-linux-x64/bin" >> "$GITHUB_PATH"
+      - name: Node.js version gate
+        run: node tools/check-node.js
+      - name: Check explorer links
+        run: node tools/check-links.js

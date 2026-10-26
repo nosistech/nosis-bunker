@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "name": "Bunker by NosisTech",
+    "url": "https://bunker.nosistech.com"
+  },
+  "models": {
+    "hidden-until-used": "The public key is hidden until the address sends or signs for the first time.",
+    "visible": "The public key is visible from day one. A new address of the same type does not hide it.",
+    "hash-safe": "No elliptic-curve public key is exposed (for example BIP-360 outputs).",
+    "ask-provider": "The answer depends on the provider or the pool, not on the address.",
+    "move-pool": "The pool is at risk and a safer pool exists.",
+    "xpub": "An extended public key. It exposes the public key of every address in a wallet.",
+    "unknown": "Not rated: unknown format, test network, typo, or not a wallet."
+  },
+  "networks": [
+    {
+      "id": "btc",
+      "name": "Bitcoin",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://mempool.space/address/{address}"
+    },
+    {
+      "id": "lightning",
+      "name": "Lightning",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://amboss.space/node/{address}"
+    },
+    {
+      "id": "liquid",
+      "name": "Liquid",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://blockstream.info/liquid/address/{address}"
+    },
+    {
+      "id": "spark",
+      "name": "Spark (Bitcoin L2)",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "ark",
+      "name": "Ark (Bitcoin L2)",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "stx",
+      "name": "Stacks",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://explorer.hiro.so/address/{address}?chain=mainnet"
+    },
+    {
+      "id": "ltc",
+      "name": "Litecoin",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://litecoinspace.org/address/{address}"
+    },
+    {
+      "id": "doge",
+      "name": "Dogecoin",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://blockchair.com/dogecoin/address/{address}"
+    },
+    {
+      "id": "bch",
+      "name": "Bitcoin Cash",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://blockchair.com/bitcoin-cash/address/{address}"
+    },
+    {
+      "id": "xec",
+      "name": "eCash",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://explorer.e.cash/address/{address}"
+    },
+    {
+      "id": "dash",
+      "name": "Dash",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://blockchair.com/dash/address/{address}"
+    },
+    {
+      "id": "dgb",
+      "name": "DigiByte",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "rvn",
+      "name": "Ravencoin",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "kas",
+      "name": "Kaspa",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://explorer.kaspa.org/addresses/{address}"
+    },
+    {
+      "id": "xmr",
+      "name": "Monero",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "zec",
+      "name": "Zcash",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://blockchair.com/zcash/address/{address}"
+    },
+    {
+      "id": "evm",
+      "name": "EVM networks",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://blockscan.com/address/{address}"
+    },
+    {
+      "id": "sui",
+      "name": "Sui",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://suiscan.xyz/mainnet/account/{address}"
+    },
+    {
+      "id": "aptos",
+      "name": "Aptos",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://explorer.aptoslabs.com/account/{address}?network=mainnet"
+    },
+    {
+      "id": "iota",
+      "name": "IOTA",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://explorer.iota.org/address/{address}"
+    },
+    {
+      "id": "starknet",
+      "name": "Starknet",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://voyager.online/contract/{address}"
+    },
+    {
+      "id": "xrp",
+      "name": "XRP Ledger",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://livenet.xrpl.org/accounts/{address}"
+    },
+    {
+      "id": "xlm",
+      "name": "Stellar",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://stellar.expert/explorer/public/account/{address}"
+    },
+    {
+      "id": "hbar",
+      "name": "Hedera",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://hashscan.io/mainnet/account/{address}"
+    },
+    {
+      "id": "algo",
+      "name": "Algorand",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://allo.info/account/{address}"
+    },
+    {
+      "id": "canton",
+      "name": "Canton Network",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "tron",
+      "name": "Tron",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://tronscan.org/#/address/{address}"
+    },
+    {
+      "id": "ada",
+      "name": "Cardano",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": "https://cardanoscan.io/address/{address}"
+    },
+    {
+      "id": "sol",
+      "name": "Solana",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://solscan.io/account/{address}"
+    },
+    {
+      "id": "ton",
+      "name": "TON",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://tonviewer.com/{address}"
+    },
+    {
+      "id": "near",
+      "name": "NEAR",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://nearblocks.io/address/{address}"
+    },
+    {
+      "id": "xtz",
+      "name": "Tezos",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://tzkt.io/{address}"
+    },
+    {
+      "id": "fil",
+      "name": "Filecoin",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://filfox.info/en/address/{address}"
+    },
+    {
+      "id": "flow",
+      "name": "Flow",
+      "accountStyle": "account",
+      "canChangeKey": true,
+      "explorer": "https://www.flowscan.io/account/{address}"
+    },
+    {
+      "id": "egld",
+      "name": "MultiversX",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://explorer.multiversx.com/accounts/{address}"
+    },
+    {
+      "id": "mina",
+      "name": "Mina",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://minascan.io/mainnet/account/{address}"
+    },
+    {
+      "id": "icp",
+      "name": "Internet Computer",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "avax",
+      "name": "Avalanche X/P-Chain",
+      "accountStyle": "utxo",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "neo",
+      "name": "Neo N3",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "cosmos",
+      "name": "Cosmos SDK",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "substrate",
+      "name": "Substrate",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "hashacct",
+      "name": "Account",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": null
+    },
+    {
+      "id": "nostr",
+      "name": "Nostr",
+      "accountStyle": "account",
+      "canChangeKey": false,
+      "explorer": "https://njump.me/{address}"
+    }
+  ],
+  "note": "Many more networks are recognized by address format (for example about 45 Cosmos networks and Substrate networks by prefix). Scan an address to see its result.",
+  "attribution": "Results by Bunker by NosisTech (https://bunker.nosistech.com). Please keep this credit when you show or share them.",
+  "source": "https://bunker.nosistech.com/networks.json"
+}

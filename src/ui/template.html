@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="__CSP__">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Bunker by NosisTech: see which of your crypto addresses show their public key, and get a calm plan to hide what you can. Runs on your device. Sends nothing. English and Spanish.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#E8EAE5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1013" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Bunker by NosisTech">
+<meta property="og:description" content="See which of your crypto addresses show their public key, and get a calm plan to hide what you can.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bunker.nosistech.com/">
+<link rel="canonical" href="https://bunker.nosistech.com/">
+<link rel="icon" href="__FAVICON__">
+<title>Bunker by NosisTech</title>
+<script type="application/ld+json">__JSONLD__</script>
+<style>__STYLES__</style>
+</head>
+<body>
+<a class="skip" href="#addrs" data-i18n="skip">Skip to the scanner</a>
+<header class="top">
+  <div class="top-in">
+    <span class="mark"><span class="mark-glyph" aria-hidden="true"></span>Bunker</span>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="langGroup">
+        <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        <button type="button" data-setlang="en" aria-pressed="true" aria-label="EN, English" lang="en">EN</button>
+        <button type="button" data-setlang="es" aria-pressed="false" aria-label="ES, Español" lang="es">ES</button>
+      </div>
+      <button type="button" id="theme" class="icon-btn" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
+      </button>
+      <span class="maker">by <a href="https://nosistech.com" rel="noopener noreferrer" target="_blank">NosisTech</a></span>
+    </div>
+  </div>
+</header>
+
+<main class="page" id="main">
+  <section class="hero">
+    <div class="hero-copy" data-lang="en">
+      <h1 id="hero-h">Which of your coins show their lock?</h1>
+      <p class="lede">Paste your public addresses. Bunker reads more than 100 networks, shows each lock that the world can see, and gives you a calm plan to hide what you can.</p>
+      <ul class="facts">
+        <li><b>Runs on your device.</b> Works with no internet connection.</li>
+        <li><b>Sends nothing.</b> No wallet connection, no tracking, no cookies.</li>
+        <li><b>Blocks secrets.</b> A seed phrase or private key is cleared at once.</li>
+      </ul>
+    </div>
+    <div class="hero-copy" data-lang="es" lang="es" hidden>
+      <h1 id="hero-h-es">¿Cuáles de tus monedas muestran su candado?</h1>
+      <p class="lede">Pega tus direcciones públicas. Bunker lee más de 100 redes, te muestra cada candado que el mundo puede ver y te da un plan tranquilo para ocultar lo que puedas.</p>
+      <ul class="facts">
+        <li><b>Se ejecuta en tu dispositivo.</b> Funciona sin conexión a internet.</li>
+        <li><b>No envía nada.</b> Sin conexión a billeteras, sin rastreo, sin cookies.</li>
+        <li><b>Bloquea secretos.</b> Una frase semilla o clave privada se borra al instante.</li>
+      </ul>
+    </div>
+
+    <div class="scanner" role="group" aria-labelledby="in-h">
+      <div class="scanner-head">
+        <label id="in-h" for="addrs" data-i18n="inLabel">Your addresses</label>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+      <textarea id="addrs" spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="100000" aria-describedby="in-help"></textarea>
+      <div class="actions">
+        <button class="primary" id="scan" type="button" data-i18n="scan">Scan addresses</button>
+        <button id="example" type="button" data-i18n="example">Load example</button>
+        <button id="clear" class="quiet" type="button" data-i18n="clear">Clear</button>
+        <span class="kbd" aria-hidden="true" data-i18n="kbd">Ctrl + Enter to scan</span>
+      </div>
+      <p class="help" id="in-help" data-i18n="help">Paste public addresses only. Never paste a seed phrase or private key into any website.</p>
+    </div>
+  </section>
+
+  <div id="alert" class="alert" role="alert" hidden></div>
+
+  <section id="results" class="results" aria-labelledby="res-h" tabindex="-1">
+    <div class="results-head">
+      <h2 id="res-h" data-i18n="resH">Your locks</h2>
+      <div id="exbanner" class="exbanner" hidden>
+        <span data-i18n="exBanner">Example data. These are public test addresses with made-up values.</span>
+        <button id="clear2" type="button" class="quiet small" data-i18n="clearExample">Clear the example</button>
+      </div>
+    </div>
+    <p class="verdict" id="verdict" role="status"></p>
+    <div class="meter" id="meter" aria-hidden="true"></div>
+    <ul class="legend" id="legend"></ul>
+
+    <div class="split">
+      <div class="list" id="cards"></div>
+      <aside class="plan-box" aria-labelledby="plan-h">
+        <div class="plan-head">
+          <h2 id="plan-h" data-i18n="planH">Your Bunker plan</h2>
+          <div class="plan-actions">
+            <button id="copy" type="button" class="small" data-i18n="copy">Copy plan</button>
+            <button id="print" type="button" class="small quiet" data-i18n="print">Print</button>
+          </div>
+        </div>
+        <p class="help" id="copied" role="status"></p>
+        <textarea id="plantext" class="sr" readonly tabindex="-1" aria-hidden="true"></textarea>
+        <ol class="plan" id="plan"></ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="guide" aria-labelledby="guide-h">
+    <h2 id="guide-h" data-i18n="guideH">Field guide</h2>
+    <div class="guide-grid">
+      <details open>
+        <summary><span data-lang="en">Where things stand on October 25, 2026</span><span data-lang="es" lang="es" hidden>Cómo están las cosas al 25 de octubre de 2026</span></summary>
+        <div data-lang="en">
+          <dl class="status-list">
+            <div><dt>The math</dt><dd>Nobody has shown a break of the signatures that Bitcoin, Ethereum or Solana use. AI math is advancing fast, so it is time to prepare.</dd></div>
+            <div><dt>The debate</dt><dd>Security experts disagree on how soon a break can come. They agree that a rushed migration is dangerous. Use addresses that have never signed if it is easy, and move slowly.</dd></div>
+            <div><dt>Scams</dt><dd>False emails that look like Ledger and Trezor tell users to install a "quantum patch". Update firmware only in Ledger Live or Trezor Suite. Do not use a link in an email.</dd></div>
+            <div><dt>Fixes</dt><dd>Bitcoin BIP-360 is on test networks only. Ethereum has a post-quantum team and plans hash-based signatures. Zcash opened a new shielded pool, Ironwood, that supports quantum-recoverable notes. Sapling and Orchard funds must be moved there.</dd></div>
+          </dl>
+        </div>
+        <div data-lang="es" lang="es" hidden>
+          <dl class="status-list">
+            <div><dt>La matemática</dt><dd>Nadie ha demostrado una forma de romper las firmas que usan Bitcoin, Ethereum o Solana. La matemática con IA avanza rápido, así que es momento de prepararse.</dd></div>
+            <div><dt>El debate</dt><dd>Los expertos en seguridad no coinciden en qué tan pronto podría llegar una ruptura. Sí coinciden en que migrar con prisa es peligroso. Usa direcciones que nunca hayan firmado si es fácil, y avanza despacio.</dd></div>
+            <div><dt>Estafas</dt><dd>Correos falsos que parecen de Ledger y Trezor piden instalar un "parche cuántico". Actualiza el firmware solo en Ledger Live o Trezor Suite. No uses enlaces de un correo.</dd></div>
+            <div><dt>Soluciones</dt><dd>Bitcoin BIP-360 solo está en redes de prueba. Ethereum tiene un equipo poscuántico y planea firmas basadas en hashes. Zcash abrió un nuevo pool blindado, Ironwood, que admite notas recuperables ante ataques cuánticos. Los fondos en Sapling y Orchard deben moverse allí.</dd></div>
+          </dl>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-lang="en">Why extra security now</span><span data-lang="es" lang="es" hidden>Por qué más seguridad ahora</span></summary>
+        <div class="prose" data-lang="en">
+          <p><strong>The last lock on your coins is a math problem that nobody has solved.</strong> The early lock of the internet, RSA, had to grow to signatures of about 400 bytes because mathematicians found shortcuts. Your wallet signature is 64 bytes because nobody has found a shortcut for its math yet.</p>
+          <p><strong>AI is advancing at an alarming rate.</strong> If machines find the shortcuts that people did not find, a lock that was safe for decades can become weak fast. Nothing is broken today. The goal is to be ready.</p>
+          <p><strong>Your address is a sealed box with your lock inside.</strong> On most addresses, the world sees only a fingerprint of the box. When you receive coins, the box stays closed. When you sign anything, the box opens: a transaction, a token approval, an NFT listing, or a "sign in with wallet" message.</p>
+          <p>Open from day one: Solana, Bitcoin Taproot (bc1p), Lightning, Spark, Ark, Kaspa, Monero, Polkadot, Bittensor, Stellar, Algorand, NEAR, Hedera, Flow, MultiversX and Mina.</p>
+          <p><strong>Do not hurry.</strong> A bad migration can lose more money than the risk that it avoids.</p>
+          <ul>
+            <li>Keep savings on an address that has never signed anything.</li>
+            <li>For Bitcoin, use a new <code>bc1q</code> address, not <code>bc1p</code>.</li>
+            <li>Send a small test amount first. Examine each character of the address.</li>
+            <li>A "quantum migration tool" in your messages is a drainer. Do not type your seed phrase into a website.</li>
+          </ul>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p><strong>El último candado de tus monedas es un problema matemático que nadie ha resuelto.</strong> El primer candado de internet, RSA, tuvo que crecer a firmas de unos 400 bytes porque los matemáticos encontraron atajos. La firma de tu billetera mide 64 bytes porque nadie ha encontrado todavía un atajo para su matemática.</p>
+          <p><strong>La IA avanza a un ritmo alarmante.</strong> Si las máquinas encuentran los atajos que las personas no encontraron, un candado que fue seguro por décadas puede debilitarse rápido. Hoy no hay nada roto. La meta es estar preparado.</p>
+          <p><strong>Tu dirección es una caja sellada con tu candado adentro.</strong> En la mayoría de las direcciones, el mundo solo ve una huella de la caja. Cuando recibes monedas, la caja sigue cerrada. Cuando firmas cualquier cosa, la caja se abre: una transacción, una aprobación de token, poner un NFT en venta o un mensaje de "iniciar sesión con billetera".</p>
+          <p>Abiertas desde el primer día: Solana, Bitcoin Taproot (bc1p), Lightning, Spark, Ark, Kaspa, Monero, Polkadot, Bittensor, Stellar, Algorand, NEAR, Hedera, Flow, MultiversX y Mina.</p>
+          <p><strong>No te apresures.</strong> Una mala migración puede perder más dinero que el riesgo que evita.</p>
+          <ul>
+            <li>Guarda los ahorros en una dirección que nunca haya firmado nada.</li>
+            <li>En Bitcoin, usa una dirección <code>bc1q</code> nueva, no <code>bc1p</code>.</li>
+            <li>Envía primero un monto pequeño de prueba. Revisa cada carácter de la dirección.</li>
+            <li>Una "herramienta de migración cuántica" en tus mensajes es un drainer. No escribas tu frase semilla en un sitio web.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-lang="en">Supported networks</span><span data-lang="es" lang="es" hidden>Redes compatibles</span></summary>
+        <div class="prose" data-lang="en">
+          <p>The tool reads each format and checks its checksum if the format has one. A typo shows as a typo, not as a rating. Explorer links show only where the link format was checked against live explorer pages.</p>
+          <dl class="cov">
+            <div><dt>Bitcoin and its layers</dt><dd>Bitcoin (legacy, nested SegWit, native SegWit, Taproot, BIP-360), Silent Payments, Lightning, Liquid, Spark, Ark, Stacks. Rootstock, BOB and Core through their EVM addresses.</dd></div>
+            <div><dt>Institutions, payments and tokenized assets</dt><dd>Ethereum and all EVM networks, with their tokens (USDT, USDC, PAXG, XAUT, QNT, ONDO, BUIDL). Canton Network, XRP Ledger, Stellar, Hedera, Algorand, XDC, Polymesh, Provenance, Centrifuge, MANTRA, Avalanche C, X and P-Chains, Tron.</dd></div>
+            <div><dt>Smart contract platforms</dt><dd>Solana, Cardano, Sui, Aptos, IOTA, Starknet, TON, NEAR, Tezos, Flow, MultiversX, Internet Computer, Mina, Neo N3, Radix, Nervos, Oasis, Zilliqa, Polkadot, Kusama, Astar, Acala, Bifrost, Hydration, KILT.</dd></div>
+            <div><dt>Cosmos networks</dt><dd>Cosmos Hub, Osmosis, Celestia, dYdX, Injective, Sei, THORChain, Maya, Babylon, Noble, Axelar, Stride, Neutron, Kava, Akash, Cronos POS, Dymension, ZetaChain, Secret, Saga, Persistence, Initia and about 20 more.</dd></div>
+            <div><dt>Store of value and payments</dt><dd>Litecoin (with MWEB), Dogecoin, Bitcoin Cash, eCash, Dash, DigiByte, Ravencoin, Kaspa.</dd></div>
+            <div><dt>Privacy, AI and identity</dt><dd>Monero, Zcash (transparent, TEX, Sapling and unified), Bittensor, Fetch.ai, Filecoin, Nostr public keys.</dd></div>
+          </dl>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p>La herramienta lee cada formato y revisa su suma de verificación si el formato la tiene. Un error de tipeo aparece como error, no como calificación. Los enlaces al explorador aparecen solo donde el formato del enlace se verificó contra páginas reales del explorador.</p>
+          <dl class="cov">
+            <div><dt>Bitcoin y sus capas</dt><dd>Bitcoin (antigua, SegWit anidada, Native SegWit, Taproot, BIP-360), Silent Payments, Lightning, Liquid, Spark, Ark, Stacks. Rootstock, BOB y Core por medio de sus direcciones EVM.</dd></div>
+            <div><dt>Instituciones, pagos y activos tokenizados</dt><dd>Ethereum y todas las redes EVM, con sus tokens (USDT, USDC, PAXG, XAUT, QNT, ONDO, BUIDL). Canton Network, XRP Ledger, Stellar, Hedera, Algorand, XDC, Polymesh, Provenance, Centrifuge, MANTRA, Avalanche C, X y P-Chain, Tron.</dd></div>
+            <div><dt>Plataformas de contratos inteligentes</dt><dd>Solana, Cardano, Sui, Aptos, IOTA, Starknet, TON, NEAR, Tezos, Flow, MultiversX, Internet Computer, Mina, Neo N3, Radix, Nervos, Oasis, Zilliqa, Polkadot, Kusama, Astar, Acala, Bifrost, Hydration, KILT.</dd></div>
+            <div><dt>Redes Cosmos</dt><dd>Cosmos Hub, Osmosis, Celestia, dYdX, Injective, Sei, THORChain, Maya, Babylon, Noble, Axelar, Stride, Neutron, Kava, Akash, Cronos POS, Dymension, ZetaChain, Secret, Saga, Persistence, Initia y unas 20 más.</dd></div>
+            <div><dt>Reserva de valor y pagos</dt><dd>Litecoin (con MWEB), Dogecoin, Bitcoin Cash, eCash, Dash, DigiByte, Ravencoin, Kaspa.</dd></div>
+            <div><dt>Privacidad, IA e identidad</dt><dd>Monero, Zcash (transparente, TEX, Sapling y unificada), Bittensor, Fetch.ai, Filecoin, claves públicas de Nostr.</dd></div>
+          </dl>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-lang="en">Words you will see</span><span data-lang="es" lang="es" hidden>Palabras que verás</span></summary>
+        <div data-lang="en">
+          <dl class="gloss">
+            <div><dt>Public key (the lock)</dt><dd>Anyone can use it to check your signature. The risk is new math that finds the private key from the public key.</dd></div>
+            <div><dt>Private key and seed phrase (the key)</dt><dd>These move your coins. They stay in your hardware wallet. Nobody honest asks for them.</dd></div>
+            <div><dt>Hash (the fingerprint)</dt><dd>A one-way fingerprint. Nobody can rebuild the input from it. Most addresses are a hash of the public key, so they hide the lock.</dd></div>
+            <div><dt>Fresh address</dt><dd>An address that has received coins but has never sent or signed anything.</dd></div>
+            <div><dt>Taproot (bc1p)</dt><dd>A Bitcoin address type from 2021. Ordinals and Runes use it. It puts the public key in the address.</dd></div>
+            <div><dt>BIP-360 and P2MR</dt><dd>A proposed Bitcoin address type (bc1z). It shows only a fingerprint of the spending rules until you spend.</dd></div>
+            <div><dt>Drainer</dt><dd>A scam website, app or email that makes you sign something or type your seed phrase, and then empties your wallet.</dd></div>
+          </dl>
+        </div>
+        <div data-lang="es" lang="es" hidden>
+          <dl class="gloss">
+            <div><dt>Clave pública (el candado)</dt><dd>Cualquiera puede usarla para comprobar tu firma. El riesgo es una matemática nueva que encuentre la clave privada a partir de la clave pública.</dd></div>
+            <div><dt>Clave privada y frase semilla (la llave)</dt><dd>Son las que mueven tus monedas. Se quedan en tu billetera de hardware. Nadie honesto te las pide.</dd></div>
+            <div><dt>Hash (la huella)</dt><dd>Una huella de un solo sentido. Nadie puede reconstruir el original a partir de ella. La mayoría de las direcciones son un hash de la clave pública, así que ocultan el candado.</dd></div>
+            <div><dt>Dirección nueva</dt><dd>Una dirección que ha recibido monedas pero nunca ha enviado ni firmado nada.</dd></div>
+            <div><dt>Taproot (bc1p)</dt><dd>Un tipo de dirección de Bitcoin de 2021. Ordinals y Runes lo usan. Pone la clave pública en la dirección.</dd></div>
+            <div><dt>BIP-360 y P2MR</dt><dd>Un tipo de dirección de Bitcoin propuesto (bc1z). Solo muestra una huella de las reglas de gasto hasta que gastes.</dd></div>
+            <div><dt>Drainer</dt><dd>Un sitio web, app o correo de estafa que te hace firmar algo o escribir tu frase semilla, y luego vacía tu billetera.</dd></div>
+          </dl>
+        </div>
+      </details>
+
+      <details id="agents">
+        <summary><span data-lang="en">Use Bunker with AI agents</span><span data-lang="es" lang="es" hidden>Usa Bunker con agentes de IA</span></summary>
+        <div class="prose" data-lang="en">
+          <p>Bunker has the same engine in three forms. All of them run on your own computer, offline.</p>
+          <ul>
+            <li><strong>This page,</strong> for people.</li>
+            <li><strong>A command-line tool</strong> with JSON output: <code>node cli/bunker.js --json addresses.txt</code></li>
+            <li><strong>An MCP server</strong> for Claude, Cursor and other agents, with the tools <code>scan_addresses</code> and <code>list_networks</code>.</li>
+          </ul>
+          <p>Agents can read <code>/llms.txt</code> and <code>/networks.json</code> on this site. Get the code and the setup steps on <a href="https://github.com/nosistech/nosis-bunker/blob/main/docs/10-agents.md" rel="noopener noreferrer" target="_blank">GitHub</a>.</p>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p>Bunker tiene el mismo motor en tres formas. Todas funcionan en tu propia computadora, sin conexión.</p>
+          <ul>
+            <li><strong>Esta página,</strong> para personas.</li>
+            <li><strong>Una herramienta de línea de comandos</strong> con salida JSON: <code>node cli/bunker.js --json direcciones.txt</code></li>
+            <li><strong>Un servidor MCP</strong> para Claude, Cursor y otros agentes, con las herramientas <code>scan_addresses</code> y <code>list_networks</code>.</li>
+          </ul>
+          <p>Los agentes pueden leer <code>/llms.txt</code> y <code>/networks.json</code> en este sitio. Descarga el código y los pasos de instalación en <a href="https://github.com/nosistech/nosis-bunker/blob/main/docs/10-agents.md" rel="noopener noreferrer" target="_blank">GitHub</a>.</p>
+        </div>
+      </details>
+
+      <details id="accessibility">
+        <summary><span data-lang="en">Accessibility</span><span data-lang="es" lang="es" hidden>Accesibilidad</span></summary>
+        <div class="prose" data-lang="en">
+          <p>Bunker is built to follow the Web Content Accessibility Guidelines (WCAG) 2.2, Level AA. We test every release, and we fix every problem that we find or that you report.</p>
+          <p><strong>How we check.</strong> Automated tests (axe-core) in English and Spanish, in light and dark mode, and checks by hand: keyboard only, 400% zoom and a narrow phone screen. A review with several screen readers is the next step. Last review: October 25, 2026.</p>
+          <p><strong>What works.</strong> The full page works with a keyboard. Every control has a label. Focus is always visible. Results and messages are read aloud. The page follows your system settings for color, motion and text size.</p>
+          <p><strong>Known limits.</strong> Screen readers read long addresses one character at a time. The plan is also available as plain text with Copy plan.</p>
+          <p><strong>Tell us about a problem.</strong> Email <a href="mailto:info@nosistech.com">info@nosistech.com</a> or open an issue on <a href="https://github.com/nosistech/nosis-bunker/issues" rel="noopener noreferrer" target="_blank">GitHub</a>. We answer within 5 working days. If a part of the page does not work for you, we will help you get the same result in another way.</p>
+          <p>This page uses no accessibility overlay.</p>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p>Bunker está hecho para seguir las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.2, nivel AA. Probamos cada versión y corregimos cada problema que encontramos o que nos reportas.</p>
+          <p><strong>Cómo revisamos.</strong> Pruebas automáticas (axe-core) en inglés y español, en modo claro y oscuro, y revisiones manuales: solo teclado, zoom de 400 % y una pantalla de teléfono angosta. La revisión con varios lectores de pantalla es el siguiente paso. Última revisión: 25 de octubre de 2026.</p>
+          <p><strong>Qué funciona.</strong> Toda la página funciona con teclado. Cada control tiene una etiqueta. El foco siempre es visible. Los resultados y mensajes se leen en voz alta. La página sigue la configuración de tu sistema para color, movimiento y tamaño de texto.</p>
+          <p><strong>Límites conocidos.</strong> Los lectores de pantalla leen las direcciones largas un carácter a la vez. El plan también está disponible como texto simple con Copiar plan.</p>
+          <p><strong>Avísanos si encuentras un problema.</strong> Escribe a <a href="mailto:info@nosistech.com">info@nosistech.com</a> o abre un reporte en <a href="https://github.com/nosistech/nosis-bunker/issues" rel="noopener noreferrer" target="_blank">GitHub</a>. Respondemos en un plazo de 5 días hábiles. Si una parte de la página no te funciona, te ayudamos a obtener el mismo resultado de otra forma.</p>
+          <p>Esta página no usa ninguna capa de accesibilidad (overlay).</p>
+        </div>
+      </details>
+
+      <details id="legal">
+        <summary><span data-lang="en">Legal notice</span><span data-lang="es" lang="es" hidden>Aviso legal</span></summary>
+        <div class="prose" data-lang="en">
+          <p>Last updated: October 25, 2026.</p>
+          <p><strong>Who publishes Bunker.</strong> NosisTech LLC, a Wyoming limited liability company, USA. Contact: <a href="mailto:info@nosistech.com">info@nosistech.com</a>.</p>
+          <p><strong>Education only.</strong> Bunker gives general, educational information about how crypto addresses expose public keys. It is not financial, investment, legal, tax or security advice, and it creates no advisor or client relationship. Bunker never holds, moves or controls funds, and it never asks for a seed phrase or a private key.</p>
+          <p><strong>Your decisions.</strong> You decide what to do with your funds. Before you move funds, examine each address on a block explorer and send a small test amount. Networks and their rules change, and results can be wrong, incomplete or out of date.</p>
+          <p><strong>No warranty.</strong> Bunker is free and is provided "as is" and "as available", without warranties of any kind, to the extent that the law allows. The Apache License 2.0 gives the same terms for the code.</p>
+          <p><strong>Limits of liability.</strong> To the extent that the law allows, NosisTech LLC and the author of Bunker are not liable for any loss or damage from the use of Bunker, including lost funds, lost profits, or indirect or consequential damage. Some countries and states do not allow some of these limits, so they may not apply to you. Nothing in this notice limits a right that you have as a consumer and that the law does not allow us to limit.</p>
+          <p><strong>Privacy.</strong> The page stores nothing and sends nothing. On bunker.nosistech.com, our hosting provider, Cloudflare, receives the technical data that every website visit sends, such as your IP address, to deliver and protect the page, and may receive browser reports of failed connections. An explorer link sends one address to that explorer, only when you select it. If you email us, we use your message only to answer you.</p>
+          <p><strong>Agents and the command line.</strong> These terms also apply to the CLI, the MCP server and their output. When an AI agent uses Bunker for you, the agent's use is your use.</p>
+          <p><strong>Open source and credit.</strong> The code is on <a href="https://github.com/nosistech/nosis-bunker" rel="noopener noreferrer" target="_blank">GitHub</a> under the Apache License 2.0. If you use, host or share Bunker or its results, please credit "Bunker by NosisTech" with a link to this site. This is a request, not a condition.</p>
+          <p><strong>Names.</strong> "Bunker by NosisTech" and "NosisTech" are names that NosisTech LLC uses for its work. The Apache License gives no right to use them, except to say where the code comes from (section 6). If you share a changed copy, give it a different name, so that people can tell it apart from the official Bunker.</p>
+          <p><strong>Law.</strong> The laws of the State of Wyoming, USA, apply, except where the law of your country gives you, as a consumer, the right to its own law or courts.</p>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p>Última actualización: 25 de octubre de 2026.</p>
+          <p><strong>Quién publica Bunker.</strong> NosisTech LLC, una sociedad de responsabilidad limitada de Wyoming, Estados Unidos. Contacto: <a href="mailto:info@nosistech.com">info@nosistech.com</a>.</p>
+          <p><strong>Solo educativo.</strong> Bunker da información general y educativa sobre cómo las direcciones cripto exponen claves públicas. No es asesoría financiera, de inversión, legal, fiscal ni de seguridad, y no crea ninguna relación de asesoría ni de cliente. Bunker nunca guarda, mueve ni controla fondos, y nunca pide una frase semilla ni una clave privada.</p>
+          <p><strong>Tus decisiones.</strong> Tú decides qué hacer con tus fondos. Antes de mover fondos, revisa cada dirección en un explorador de bloques y envía un monto pequeño de prueba. Las redes y sus reglas cambian, y los resultados pueden estar equivocados, incompletos o desactualizados.</p>
+          <p><strong>Sin garantía.</strong> Bunker es gratuito y se ofrece "tal cual" y "según disponibilidad", sin garantías de ningún tipo, en la medida en que la ley lo permita. La Licencia Apache 2.0 da los mismos términos para el código.</p>
+          <p><strong>Límites de responsabilidad.</strong> En la medida en que la ley lo permita, NosisTech LLC y el autor de Bunker no responden por ninguna pérdida ni daño derivados del uso de Bunker, incluidos fondos perdidos, ganancias perdidas o daños indirectos o consecuenciales. Algunos países y estados no permiten algunos de estos límites, así que es posible que no se apliquen a ti. Nada en este aviso limita un derecho que tienes como consumidor y que la ley no nos permite limitar.</p>
+          <p><strong>Privacidad.</strong> La página no guarda ni envía nada. En bunker.nosistech.com, nuestro proveedor de hosting, Cloudflare, recibe los datos técnicos que envía cualquier visita a un sitio web, como tu dirección IP, para entregar y proteger la página, y puede recibir reportes del navegador sobre conexiones fallidas. Un enlace a un explorador envía una dirección a ese explorador, solo cuando lo eliges. Si nos escribes, usamos tu mensaje solo para responderte.</p>
+          <p><strong>Agentes y línea de comandos.</strong> Estos términos también se aplican a la CLI, al servidor MCP y a sus resultados. Cuando un agente de IA usa Bunker por ti, el uso del agente es tu uso.</p>
+          <p><strong>Código abierto y crédito.</strong> El código está en <a href="https://github.com/nosistech/nosis-bunker" rel="noopener noreferrer" target="_blank">GitHub</a> bajo la Licencia Apache 2.0. Si usas, alojas o compartes Bunker o sus resultados, por favor da crédito a "Bunker by NosisTech" con un enlace a este sitio. Es una petición, no una condición.</p>
+          <p><strong>Nombres.</strong> "Bunker by NosisTech" y "NosisTech" son nombres que NosisTech LLC usa para su trabajo. La Licencia Apache no da derecho a usarlos, salvo para decir de dónde viene el código (sección 6). Si compartes una copia modificada, dale otro nombre, para que la gente la distinga del Bunker oficial.</p>
+          <p><strong>Ley aplicable.</strong> Se aplican las leyes del Estado de Wyoming, Estados Unidos, salvo cuando la ley de tu país te dé, como consumidor, el derecho a su propia ley o a sus propios tribunales.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="foot-page">
+  <div class="foot-in">
+    <p data-lang="en">Bunker reads address formats and your answers. It loads nothing from outside, does not query a blockchain, and does not store or send anything. Explorer links open only when you select them. This is an educational tool. It is not financial, legal or security advice. Examine each address on a block explorer and send a small test amount before you move funds.</p>
+    <p data-lang="es" lang="es" hidden>Bunker lee formatos de direcciones y tus respuestas. No carga nada de afuera, no consulta ninguna blockchain y no guarda ni envía nada. Los enlaces al explorador se abren solo cuando los eliges. Es una herramienta educativa. No es asesoría financiera, legal ni de seguridad. Revisa cada dirección en un explorador de bloques y envía un monto pequeño de prueba antes de mover fondos.</p>
+    <nav class="foot-links" aria-label="Footer" data-i18n-aria="footerNav">
+      <a href="#accessibility" data-open="accessibility"><span data-lang="en">Accessibility</span><span data-lang="es" lang="es" hidden>Accesibilidad</span></a>
+      <a href="#legal" data-open="legal"><span data-lang="en">Legal notice</span><span data-lang="es" lang="es" hidden>Aviso legal</span></a>
+      <a href="#agents" data-open="agents"><span data-lang="en">For AI agents</span><span data-lang="es" lang="es" hidden>Para agentes de IA</span></a>
+      <a href="https://github.com/nosistech/nosis-bunker" rel="noopener noreferrer" target="_blank"><span data-lang="en">Source code</span><span data-lang="es" lang="es" hidden>Código fuente</span></a>
+      <a href="mailto:info@nosistech.com">info@nosistech.com</a>
+    </nav>
+    <p>Bunker by NosisTech. Created by Carlos A. Paredes Vargas, <a href="https://nosistech.com" rel="noopener noreferrer" target="_blank">NosisTech LLC</a>. Apache License 2.0. Version __VERSION__.</p>
+  </div>
+</footer>
+<script>__SCRIPT__</script>
+</body>
+</html>

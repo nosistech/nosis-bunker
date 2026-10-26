@@ -1,0 +1,347 @@
+{
+  "about": "Real, public addresses with the expected result. 'source' tells where each address comes from. These are public test vectors, developer accounts, well-known contracts or addresses shown on public explorer pages. None of them belongs to the authors.",
+  "cases": [
+    {
+      "address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "chain": "btc",
+      "model": "hidden-until-used",
+      "source": "Bitcoin genesis block address"
+    },
+    {
+      "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+      "chain": "btc",
+      "model": "hidden-until-used",
+      "source": "Bitcoin wiki P2SH example"
+    },
+    {
+      "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+      "chain": "btc",
+      "model": "hidden-until-used",
+      "source": "BIP-173 test vector"
+    },
+    {
+      "address": "bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3",
+      "chain": "btc",
+      "model": "hidden-until-used",
+      "source": "BIP-173 test vector (P2WSH)"
+    },
+    {
+      "address": "bc1p5cyxnuxmeuwuvkwfem96lqzszd02n6xdcjrs20cac6yqjjwudpxqkedrcr",
+      "chain": "btc",
+      "model": "visible",
+      "source": "BIP-86 test vector (Taproot)"
+    },
+    {
+      "address": "sp1qqgste7k9hx0qftg6qmwlkqtwuy6cycyavzmzj85c6qdfhjdpdjtdgqjuexzk6murw56suy3e0rd2cgqvycxttddwsvgxe2usfpxumr70xc9pkqwv",
+      "chain": "btc",
+      "model": "visible",
+      "source": "BIP-352 test vector (Silent Payments)"
+    },
+    {
+      "address": "lnbc1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdpl2pkx2ctnv5sxxmmwwd5kgetjypeh2ursdae8g6twvus8g6rfwvs8qun0dfjkxaq9qrsgq357wnc5r2ueh7ck6q93dj32dlqnls087fxdwk8qakdyafkq3yap9us6v52vjjsrvywa6rt52cm9r9zqt8r2t7mlcwspyetp5h2tztugp9lfyql",
+      "chain": "lightning",
+      "model": "visible",
+      "source": "BOLT 11 test vector"
+    },
+    {
+      "address": "03e7156ae33b0a208d0744199163177e909e80176e55d97a2f221ede0f934dd9ad",
+      "chain": "lightning",
+      "model": "visible",
+      "source": "BOLT 11 test vector (payee node ID)"
+    },
+    {
+      "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "EIP-55 test vector"
+    },
+    {
+      "address": "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "EIP-55 test vector"
+    },
+    {
+      "address": "0x8Fe815417913a93Ea99049FC0718ee1647A2a07c",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "Address page on xdcscan.com (mixed-case checksum)"
+    },
+    {
+      "address": "xdc2c7903c0d11af9581a71e19657f439e1857c9001",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "Address page on xdcscan.com"
+    },
+    {
+      "address": "ronin:22cefc91e9b7c0f3890ebf9527ea89053490694e",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "Address page on app.roninchain.com"
+    },
+    {
+      "address": "one1nvdlwuz2248yavsph8lz59hgtsyn42epagant6",
+      "chain": "evm",
+      "model": "hidden-until-used",
+      "source": "Address page on explorer.harmony.one"
+    },
+    {
+      "address": "0x4a220e6096b25eadb88358cb44068a3248254675",
+      "chain": "evm",
+      "model": "unknown",
+      "source": "QNT token contract (CoinGecko)"
+    },
+    {
+      "address": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "chain": "tron",
+      "model": "unknown",
+      "source": "USDT contract on Tron"
+    },
+    {
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "chain": "sol",
+      "model": "unknown",
+      "source": "USDC mint on Solana"
+    },
+    {
+      "address": "11111111111111111111111111111111",
+      "chain": "sol",
+      "model": "unknown",
+      "source": "Solana System Program (not a wallet)"
+    },
+    {
+      "address": "SP000000000000000000002Q6VF78",
+      "chain": "stx",
+      "model": "hidden-until-used",
+      "source": "Stacks burn address"
+    },
+    {
+      "address": "SM2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKQVX8X0G",
+      "chain": "stx",
+      "model": "hidden-until-used",
+      "source": "Stacks multisig example"
+    },
+    {
+      "address": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+      "chain": "xrp",
+      "model": "hidden-until-used",
+      "source": "XRP Ledger genesis account"
+    },
+    {
+      "address": "15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Polkadot development account Alice"
+    },
+    {
+      "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Substrate development account Alice (prefix 42)"
+    },
+    {
+      "address": "HNZata7iMYWmk5RvZRTiAsSDhV8366zq2YGb3tLH5Upf74F",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Kusama development account Alice"
+    },
+    {
+      "address": "2Fw7bXjVRc5BcC8AKHAVuAJ4xhQJa71K9ATP8AKc9B7yGcxB",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Account page on polymesh.subscan.io"
+    },
+    {
+      "address": "4dpEcgqJRyJK3J8Es6v8ZfVntV7c64Ysgcjd4hYwyGoFPWbg",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Account page on centrifuge.subscan.io"
+    },
+    {
+      "address": "25tnxVXjm7Aodh2vE93vTmJ9dmFC3ZWmAz2EbyYsFsNyhmN5",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Account page on acala.subscan.io"
+    },
+    {
+      "address": "5Fnz6oAmdQZiHFhQMEmUqXNwgZgUDkSobASwhXZH4uUHsUYt",
+      "chain": "substrate",
+      "model": "visible",
+      "source": "Account page on taostats.io (Bittensor)"
+    },
+    {
+      "address": "44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A",
+      "chain": "xmr",
+      "model": "visible",
+      "source": "Monero project donation address (old)"
+    },
+    {
+      "address": "888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkRxbANsAnjyPbb3iQ1YBRk1UXcdRsiKc9dhwMVgN5S9cQUiyoogDavup3H",
+      "chain": "xmr",
+      "model": "visible",
+      "source": "Monero general fund subaddress"
+    },
+    {
+      "address": "kaspa:qqkqkzjvr7zwxxmjxjkmxxdwju9kjs6e9u82uh59z07vgaks6gg62v8707g73",
+      "chain": "kas",
+      "model": "visible",
+      "source": "Kaspa documentation example"
+    },
+    {
+      "address": "kaspa:qp9rv9jvx2kyf6wu4lupuruunq5zsuszyxs0dr3l89ej7wsgs48jqkewy6xtl",
+      "chain": "kas",
+      "model": "visible",
+      "source": "Address page on explorer.kaspa.org"
+    },
+    {
+      "address": "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98",
+      "chain": "kas",
+      "model": "hidden-until-used",
+      "source": "Script address page on explorer.kaspa.org"
+    },
+    {
+      "address": "bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a",
+      "chain": "bch",
+      "model": "hidden-until-used",
+      "source": "CashAddr specification example"
+    },
+    {
+      "address": "ecash:qqqzwpmgxuxhejdy2f9zy37gqh4c9y2eu5n4swlugj",
+      "chain": "xec",
+      "model": "hidden-until-used",
+      "source": "Address page on explorer.e.cash"
+    },
+    {
+      "address": "tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx",
+      "chain": "xtz",
+      "model": "hidden-until-used",
+      "source": "Example account from the Tezos documentation"
+    },
+    {
+      "address": "B62qrPN5Y5yq8kGE3FbVKbGTdTAJNdtNtB5sNVpxyRwWGcDEhpMzc8g",
+      "chain": "mina",
+      "model": "visible",
+      "source": "Mina documentation example"
+    },
+    {
+      "address": "B62qoeGL6sMpuzEGwt1P56n1j47r1ZRGrhfGHq4hgyUSafLriyys4MM",
+      "chain": "mina",
+      "model": "visible",
+      "source": "Account page on minascan.io"
+    },
+    {
+      "address": "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+      "chain": "egld",
+      "model": "visible",
+      "source": "MultiversX documentation example"
+    },
+    {
+      "address": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "chain": null,
+      "model": "unknown",
+      "source": "ICP ledger canister"
+    },
+    {
+      "address": "2vxsx-fae",
+      "chain": null,
+      "model": "unknown",
+      "source": "ICP anonymous principal"
+    },
+    {
+      "address": "a6b9670e7550389f927e41cb046c7f7f01a203f89cb15eb2fba6584661bd01b0",
+      "chain": "icp",
+      "model": "hidden-until-used",
+      "source": "Account page on dashboard.internetcomputer.org"
+    },
+    {
+      "address": "f1abjxfbp274xpdqcpuaykwkfb43omjotacm2p3za",
+      "chain": "fil",
+      "model": "hidden-until-used",
+      "source": "Filecoin specification example"
+    },
+    {
+      "address": "f1ojdxbixro3pxlozhcra5tzxe5p6df6rzwrmlaja",
+      "chain": "fil",
+      "model": "hidden-until-used",
+      "source": "Address page on filfox.info"
+    },
+    {
+      "address": "cosmos1xsmg9w9ujfljuwpjpq9ese4pz0sv4vm0jfhkns",
+      "chain": "cosmos",
+      "model": "hidden-until-used",
+      "source": "Account page on mintscan.io"
+    },
+    {
+      "address": "secret1dkrg7sl44al8umjvx595e83g3k37kumwdd8txt",
+      "chain": "cosmos",
+      "model": "hidden-until-used",
+      "source": "Account page on mintscan.io"
+    },
+    {
+      "address": "neutron1e4szdg39ya0c7xzpqerkcushu9uyhlervmdfd2",
+      "chain": "cosmos",
+      "model": "hidden-until-used",
+      "source": "Account page on mintscan.io"
+    },
+    {
+      "address": "thor1dheycdevq39qlkxs2a6wuuzyn4aqxhve4qxtxt",
+      "chain": "cosmos",
+      "model": "hidden-until-used",
+      "source": "Address page on runescan.io"
+    },
+    {
+      "address": "maya1fxf5lduvas2wha7gxmwdnerren6u2r25g473kj",
+      "chain": "cosmos",
+      "model": "hidden-until-used",
+      "source": "Address page on mayascan.org"
+    },
+    {
+      "address": "P-avax1x8mzgm2j6yldrp2fyxrsl68p3snt9pkky0rlza",
+      "chain": "avax",
+      "model": "hidden-until-used",
+      "source": "P-Chain address page on avascan.info"
+    },
+    {
+      "address": "avax1kz3tjk5ds6sr9rwd7mp6wvtlyn79anu77ywdtc",
+      "chain": "avax",
+      "model": "hidden-until-used",
+      "source": "P-Chain address page on subnets.avax.network"
+    },
+    {
+      "address": "npub10elfcs4fr0l0r8af98jlmgdh9c8tcxjvz9qkw038js35mp4dma8qzvjptg",
+      "chain": "nostr",
+      "model": "visible",
+      "source": "NIP-19 test vector"
+    },
+    {
+      "address": "0x6ff58b444b315dfce46fe44384a0bdcecce41cf818172571bab6ba7136c68a95",
+      "chain": "sui",
+      "model": "hidden-until-used",
+      "source": "Address page on explorer.iota.org (the user picks the network)"
+    },
+    {
+      "address": "0xc84eefd049dd1b67",
+      "chain": "flow",
+      "model": "visible",
+      "source": "Account page on flowscan.io"
+    },
+    {
+      "address": "GCKFBEIYV2U22IO2BJ4KVJOIP7XPWQGQFKKWXR6DOSJBV7STMAQSMTGG",
+      "chain": "xlm",
+      "model": "visible",
+      "source": "Stellar documentation example"
+    },
+    {
+      "address": "VCMJKWOY5P5P7SKMZFFOCEROPJCZOTIJMNIYNUCKH7LRO45JMJP6UYBIJA",
+      "chain": "algo",
+      "model": "visible",
+      "source": "Algorand documentation example"
+    },
+    {
+      "address": "EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N",
+      "chain": "ton",
+      "model": "hidden-until-used",
+      "source": "TON Foundation wallet (public)"
+    }
+  ]
+}

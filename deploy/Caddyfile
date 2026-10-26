@@ -1,0 +1,33 @@
+# Caddy configuration for bunker.nosistech.com on a VPS. See docs/security/hosting.md.
+# Caddy gets and renews the TLS certificate by itself.
+# Copy the folder site/ from the repository to /srv/nosis-bunker on the server.
+#
+# The page has its full Content Security Policy in a meta tag (with the script and style hashes).
+# This file adds the headers that a meta tag cannot set. If you change the page, you do not
+# have to change this file.
+bunker.nosistech.com {
+	root * /srv/nosis-bunker
+	file_server
+	encode zstd gzip
+
+	header {
+		-Server
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		X-Frame-Options "DENY"
+		Content-Security-Policy "frame-ancestors 'none'; base-uri 'none'; object-src 'none'; form-action 'none'"
+		Cross-Origin-Opener-Policy "same-origin"
+		Cross-Origin-Resource-Policy "same-origin"
+		Cross-Origin-Embedder-Policy "require-corp"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), clipboard-read=()"
+		Strict-Transport-Security "max-age=63072000; includeSubDomains"
+		Cache-Control "no-cache, no-transform"
+	}
+
+	@download path /nosis-bunker.html
+	header @download Content-Disposition "attachment; filename=\"nosis-bunker.html\""
+
+	# Serve only the files of the site. Hide anything that is not part of it.
+	@hidden path /_headers /.git*
+	respond @hidden 404
+}

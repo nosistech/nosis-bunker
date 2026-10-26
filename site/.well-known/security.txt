@@ -1,0 +1,6 @@
+Contact: mailto:info@nosistech.com
+Contact: https://nosistech.com
+Expires: 2027-10-01T00:00:00.000Z
+Preferred-Languages: en, es
+Canonical: https://bunker.nosistech.com/.well-known/security.txt
+Policy: https://github.com/nosistech/nosis-bunker/blob/main/SECURITY.md

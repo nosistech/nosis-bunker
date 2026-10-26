@@ -1,0 +1,48 @@
+# Continuous integration. Runs on every push and pull request.
+# Supply-chain rules (OWASP CI/CD Top 10):
+#   - No third-party actions. The steps use only git, curl and an official Node.js build.
+#   - The Node.js build is pinned by version and SHA-256 hash (docs/security/supply-chain.md).
+#   - The token can only read the repository.
+#   - The project has no dependencies, so there is nothing to install.
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Get the code (plain git, no third-party action)
+        env:
+          TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          git init -q .
+          # GitHub's git server takes the job token as Basic auth with the user name x-access-token.
+          # The header goes in through git's environment, not the command line, so it never shows in a process list.
+          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.extraheader
+          GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+          export GIT_CONFIG_VALUE_0
+          git fetch -q --depth 1 "https://github.com/$REPO" "$SHA"
+          git checkout -q FETCH_HEAD
+      - name: Install Node.js 24.22.1 (official build, SHA-256 pinned, no third-party action)
+        run: |
+          cd "$RUNNER_TEMP"
+          curl -fsSLO https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz
+          echo "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6  node-v24.22.1-linux-x64.tar.xz" | sha256sum -c -
+          tar -xJf node-v24.22.1-linux-x64.tar.xz
+          echo "$RUNNER_TEMP/node-v24.22.1-linux-x64/bin" >> "$GITHUB_PATH"
+      - name: Node.js version gate
+        run: node tools/check-node.js
+      - name: Build the page and the website folder
+        run: node tools/build.js && node tools/site.js
+      - name: Test
+        run: node --test
+      - name: Writing check (fails on em dashes, reports long sentences)
+        run: node tools/check-style.js
+      - name: The committed dist and site files must match a fresh build
+        run: git diff --exit-code -- dist/ site/

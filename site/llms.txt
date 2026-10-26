@@ -1,0 +1,38 @@
+# Bunker by NosisTech
+
+> Bunker is a free, offline scanner for public crypto addresses. It shows which addresses expose their public key ("the lock") and gives a calm, step-by-step plan to hide what can be hidden. More than 100 networks, with checksum validation. English and Spanish. Version 1.2.1.
+
+Important for agents:
+
+- Bunker needs PUBLIC addresses only. Never send, ask for or store a seed phrase or private key. Bunker rejects them.
+- The web page runs in the browser and sends nothing. There is no web API on this site. To call Bunker from an agent, run the local CLI or the local MCP server (below).
+- Results are educational, not financial advice. When you show results, credit "Bunker by NosisTech" with a link to https://bunker.nosistech.com.
+
+## Use
+
+- [Web app](https://bunker.nosistech.com/): paste addresses, answer one question for some addresses, get a plan.
+- [Offline copy](https://bunker.nosistech.com/nosis-bunker.html): the same single HTML file, for use with no internet connection.
+- [Supported networks (JSON)](https://bunker.nosistech.com/networks.json): network ids, names, exposure models and explorer link formats.
+
+## Local tools for agents
+
+Get the code: `git clone https://github.com/nosistech/nosis-bunker.git` (no dependencies, Node.js 22.23.4, 24.22.1 or 26.12.1, or a newer release of the same line (24 is the tested one)). Setup guide: [docs/10-agents.md](https://github.com/nosistech/nosis-bunker/blob/main/docs/10-agents.md).
+
+- CLI: `node cli/bunker.js --json addresses.txt` prints a JSON report (schemaVersion 1). Exit code 2 means the input looked like a secret and nothing was processed.
+- MCP server (stdio): `node mcp/server.js`. Tools: `scan_addresses` (addresses, optional answers and lang) and `list_networks`. Both are read-only and offline.
+
+## Exposure models
+
+- hidden-until-used: The public key is hidden until the address sends or signs for the first time.
+- visible: The public key is visible from day one. A new address of the same type does not hide it.
+- hash-safe: No elliptic-curve public key is exposed (for example BIP-360 outputs).
+- ask-provider: The answer depends on the provider or the pool, not on the address.
+- move-pool: The pool is at risk and a safer pool exists.
+- xpub: An extended public key. It exposes the public key of every address in a wallet.
+- unknown: Not rated: unknown format, test network, typo, or not a wallet.
+
+## Optional
+
+- [Source code](https://github.com/nosistech/nosis-bunker) (Apache License 2.0)
+- [Security contact](https://bunker.nosistech.com/.well-known/security.txt)
+- Publisher: NosisTech LLC, https://nosistech.com, info@nosistech.com
