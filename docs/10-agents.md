@@ -93,7 +93,7 @@ The server speaks two generations of the protocol, as the specification recommen
 | Generation | Versions | How it starts |
 |---|---|---|
 | Modern | 2026-07-28 | No handshake. Each request carries its version and the client capabilities in `params._meta`. The client can call `server/discover` first. Results carry `resultType: "complete"`, the server identity in `_meta`, and cache hints (`ttlMs`, `cacheScope`) on `server/discover` and `tools/list`. |
-| Legacy | 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05 | The client sends `initialize`, then `notifications/initialized`. |
+| Legacy | 2025-11-25, 2025-06-18 | The client sends `initialize`, then `notifications/initialized`. Older revisions used JSON-RPC batches, which this server does not accept. |
 
 A modern request with a version that the server does not know gets error `-32022` with the list of supported versions. A modern request without client capabilities gets error `-32602`.
 
