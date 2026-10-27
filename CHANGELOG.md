@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.2 (2026-10-27)
+
+A documentation review compared the docs, the decision records and the tests with the code.
+
+- Plan advice: Litecoin Taproot and MWEB advice names `ltc1q` and no longer mentions BIP-360, a Bitcoin proposal (P-43).
+- Shared formats: Starknet is offered only for values below 2^251, in the 64-digit and the 63-digit forms (P-44).
+- Canton: the plan asks the three provider questions of ADR-012 (P-45).
+- Tests: a real P-37 case with the Solana shape (P-46), and tests for P-43 to P-45.
+- Docs: the README results table names a Zcash unified address, not Sapling. Also fixed: the test summary in 08-testing.md, the file of `uiEl` in ADR-019, and the Starknet rule in ADR-011 and P-02.
+
 ## 1.2.1 (2026-10-25)
 
 A full review pass: network rules, security, Spanish and documentation, each by a separate reviewer.

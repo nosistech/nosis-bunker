@@ -16,7 +16,7 @@ The page shows text that the user typed: addresses and labels. If the page puts 
 
 ## Decision
 
-Option C. One helper, `uiEl(tag, attrs, children)` in [src/ui/app.js](../../src/ui/app.js), builds every element. Text goes through `textContent`.
+Option C. One helper, `uiEl(tag, attrs, children)` in [src/ui/dom.js](../../src/ui/dom.js), builds every element. Text goes through `textContent`.
 
 ## Reasons
 

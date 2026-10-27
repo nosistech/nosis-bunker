@@ -117,7 +117,7 @@ The plan then says: move the daily wallet funds to a new account that only recei
 | Check needed | The key is hidden until the address sends or signs. | Answer the question on the card. |
 | Lock hidden | The key has never been shown. | Use this address only to receive. |
 | Hash-protected | The address type has no curve key (for example BIP-360). | Nothing. |
-| Ask your provider, Check your pool | A permissioned network, such as Canton, or a shielded pool whose status is outside the address, such as Zcash Sapling. | Ask the operator the questions in the plan, or check the pool. |
+| Ask your provider, Check your pool | A permissioned network, such as Canton, or a Zcash unified address, whose pool decides the risk. | Ask the operator the questions in the plan, or check the pool. |
 | Shows every key | An extended public key (xpub). | Stop sharing it with apps and trackers. |
 | Not rated | A typo, a test network, a contract, or an unknown format. | Read the note on the card. |
 

@@ -8,7 +8,7 @@
   Cross-Origin-Embedder-Policy: require-corp
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), clipboard-read=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains
-  Content-Security-Policy: default-src 'none'; script-src 'sha256-DweVoL/tZBEAHL+6brrYYUgBm0w9dHzwWHjcbNNbmro='; style-src 'sha256-L5BUUmzuLgkXV30zs8PcXA2M+sX3ouXEhmE6fTKaeuI='; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'sha256-P+LURkm9lfMlL5gmLjVQFi7jy507xe08IZlFdvGufpo='; style-src 'sha256-L5BUUmzuLgkXV30zs8PcXA2M+sX3ouXEhmE6fTKaeuI='; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types 'none'; frame-ancestors 'none'
   Cache-Control: no-cache, no-transform
   ! Access-Control-Allow-Origin
 

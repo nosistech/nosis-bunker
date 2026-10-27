@@ -74,7 +74,7 @@ This document lists each problem that we found during the build. For each proble
 | B. Ask the user to pick the network | Always correct | One more click |
 | C. Guess from the value | No click | Wrong guesses |
 
-**Fix.** Option B. Starknet addresses are numbers below 2^251, so the first hex digit is 0 to 7. If the first digit is 8 or higher, Starknet is not an option.
+**Fix.** Option B. Starknet addresses are numbers below 2^251. In the 64-digit form, the first hex digit is 0 and the second is 0 to 7. In any other case, Starknet is not an option. The first version checked only the first digit (P-44).
 
 **Spark.** A test address built with the Spark layout has the same prefix and length as a real one. This matches a Spark address that contains its 33-byte identity key. The rating is **visible**.
 
@@ -581,3 +581,64 @@ Version 1.2.1 came from a review with four separate reviewers: network rules, se
 The `near:` prefix stays whole, because Bunker uses it to tell a NEAR account from a bare key.
 
 **Result.** 19 kinds of secrets are blocked. The test suite has one input for each. It also has a NEAR public key and a Solana program address, to show that public data in the same shapes still passes.
+
+## The 1.2.2 review pass
+
+A documentation review compared the docs, the decision records and the tests with the code, one claim at a time. It found three gaps in the code and one gap in a test.
+
+| # | Problem | Severity | Result |
+|---|---|---|---|
+| P-43 | Litecoin advice named a Bitcoin address type and a Bitcoin proposal | Medium | Litecoin advice names `ltc1q` |
+| P-44 | Starknet was offered for values above 2^251 | Low | The value is checked in both forms |
+| P-45 | The plan asked two of the three provider questions of ADR-012 | Low | The plan asks all three |
+| P-46 | The P-37 test used a typo that could not reach the Solana rule | Low | A real case with the Solana shape |
+
+## P-43. Litecoin advice named a Bitcoin address type and a Bitcoin proposal
+
+**How we found it.** The review read every plan text next to each network. For a Litecoin MWEB address, the plan said to keep savings on a new `bc1q` address. For a Litecoin Taproot address, it said to be ready for BIP-360 outputs.
+
+**Cause.** `waitAdvice()` in `src/advice.js` used one text for Bitcoin and Litecoin. `bc1q` is a Bitcoin address. BIP-360 is a Bitcoin proposal.
+
+**Options.**
+
+| Option | For | Against |
+|---|---|---|
+| A. One neutral text for both, such as "a new SegWit address" | One text | Less exact for Bitcoin users |
+| **B. Separate texts for Bitcoin and Litecoin** | Each text names the right address type | Two more sentences to translate |
+
+**Fix.** Option B. The Litecoin texts name `ltc1q` and do not mention BIP-360. The Bitcoin texts do not change.
+
+**Result.** `test/plan.test.js` checks that Litecoin advice names `ltc1q` and never `bc1q` or BIP-360.
+
+## P-44. Starknet was offered for values above 2^251
+
+**How we found it.** The review compared the Starknet rule with its own comment. The comment said "below 2^251". The code checked only the first hex digit. The IOTA test address `0x6ff5...` got a Starknet button.
+
+**Cause.** 2^251 is `0x08` followed by 62 zeros. In the 64-digit form, a Starknet address starts with `0`, and the second digit is 0 to 7. A first digit of 1 to 7 gives a value of 2^252 or more. The rule for 63 digits had the same gap for a first digit of 8 to f.
+
+**Options.**
+
+| Option | For | Against |
+|---|---|---|
+| A. Keep the check on the first digit | No change | Offers Starknet for addresses that cannot be Starknet |
+| **B. Check the value against 2^251 in both forms** | Exact; two short conditions | None found |
+
+**Fix.** Option B. The status does not change, because all four networks hide the key until the first transaction. Only the list of network buttons changes.
+
+**Result.** A new test checks values just below 2^251, values at 2^251, and the IOTA fixture.
+
+## P-45. The plan asked two of the three provider questions of ADR-012
+
+**How we found it.** ADR-012 says that the plan text gives three questions word for word. The Canton plan text asked two of them. The question about a dated plan for post-quantum keys was missing.
+
+**Fix.** The plan text now asks the three questions of ADR-012, in English and in Spanish.
+
+**Result.** `test/plan.test.js` checks the three questions in the plan.
+
+## P-46. The P-37 test used a typo that could not reach the Solana rule
+
+**How we found it.** The test comment said that `bc1qw508...f3t5` is 43 Base58 characters long. It has 42 characters. It also contains `0`, which Base58 does not use. The Solana rule could never see this string, so the test did not show the danger of P-37.
+
+**Fix.** The comment now says what the string is. A second case uses the DigiByte sample address with one changed character. Its 43 characters are all Base58 and decode to 32 bytes, so the Solana rule alone accepts it. The test checks that the pipeline reports a checksum failure first.
+
+**Result.** We removed the Bech32 shape rule of P-37 in a copy of the code. The DigiByte typo then showed as a Solana account, and the test failed. With the rule, the test passes.
