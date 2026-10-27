@@ -25,5 +25,5 @@ Option C.
 
 ## Consequences
 
-- Starknet is offered only when the first hex digit is 0 to 7, because Starknet addresses are numbers below 2^251.
+- Starknet is offered only when the address can be a number below 2^251. In the 64-digit form, the first hex digit is 0 and the second is 0 to 7 (P-44).
 - The EVM format is shared by more than 25 networks, but the key and the advice are the same on all of them. The card lists the networks instead of buttons.

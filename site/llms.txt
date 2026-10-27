@@ -1,6 +1,6 @@
 # Bunker by NosisTech
 
-> Bunker is a free, offline scanner for public crypto addresses. It shows which addresses expose their public key ("the lock") and gives a calm, step-by-step plan to hide what can be hidden. More than 100 networks, with checksum validation. English and Spanish. Version 1.2.1.
+> Bunker is a free, offline scanner for public crypto addresses. It shows which addresses expose their public key ("the lock") and gives a calm, step-by-step plan to hide what can be hidden. More than 100 networks, with checksum validation. English and Spanish. Version 1.2.2.
 
 Important for agents:
 

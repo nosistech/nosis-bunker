@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-DweVoL/tZBEAHL+6brrYYUgBm0w9dHzwWHjcbNNbmro='; style-src 'sha256-L5BUUmzuLgkXV30zs8PcXA2M+sX3ouXEhmE6fTKaeuI='; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P+LURkm9lfMlL5gmLjVQFi7jy507xe08IZlFdvGufpo='; style-src 'sha256-L5BUUmzuLgkXV30zs8PcXA2M+sX3ouXEhmE6fTKaeuI='; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="Bunker by NosisTech: see which of your crypto addresses show their public key, and get a calm plan to hide what you can. Runs on your device. Sends nothing. English and Spanish.">
 <meta name="color-scheme" content="light dark">
@@ -16,7 +16,7 @@
 <link rel="canonical" href="https://bunker.nosistech.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%232238C2%22%2F%3E%3Crect%20x%3D%229%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%2211%22%20rx%3D%222.5%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M12%2014v-3a4%204%200%200%201%208%200v3%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.6%22%2F%3E%3C%2Fsvg%3E">
 <title>Bunker by NosisTech</title>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Bunker by NosisTech","alternateName":"Bunker","url":"https://bunker.nosistech.com/","description":"Offline scanner that shows which crypto addresses expose their public key, with a calm, step-by-step plan to hide what you can. More than 100 networks. Runs on your device and sends nothing.","applicationCategory":"SecurityApplication","operatingSystem":"Any modern web browser. The CLI and the MCP server need Node.js 22.23.4 or later.","softwareVersion":"1.2.1","inLanguage":["en","es"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://www.apache.org/licenses/LICENSE-2.0","downloadUrl":"https://bunker.nosistech.com/nosis-bunker.html","sameAs":["https://github.com/nosistech/nosis-bunker"],"author":{"@type":"Person","name":"Carlos A. Paredes Vargas"},"publisher":{"@type":"Organization","name":"NosisTech LLC","url":"https://nosistech.com","email":"info@nosistech.com"},"accessibilityFeature":["fullKeyboardControl","readingOrder","structuralNavigation"],"accessibilityHazard":"none","featureList":["100+ networks with checksum validation","Secret guard that blocks seed phrases and private keys","Step-by-step plan","English and Spanish","CLI with JSON output","Local MCP server for AI agents"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Bunker by NosisTech","alternateName":"Bunker","url":"https://bunker.nosistech.com/","description":"Offline scanner that shows which crypto addresses expose their public key, with a calm, step-by-step plan to hide what you can. More than 100 networks. Runs on your device and sends nothing.","applicationCategory":"SecurityApplication","operatingSystem":"Any modern web browser. The CLI and the MCP server need Node.js 22.23.4 or later.","softwareVersion":"1.2.2","inLanguage":["en","es"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://www.apache.org/licenses/LICENSE-2.0","downloadUrl":"https://bunker.nosistech.com/nosis-bunker.html","sameAs":["https://github.com/nosistech/nosis-bunker"],"author":{"@type":"Person","name":"Carlos A. Paredes Vargas"},"publisher":{"@type":"Organization","name":"NosisTech LLC","url":"https://nosistech.com","email":"info@nosistech.com"},"accessibilityFeature":["fullKeyboardControl","readingOrder","structuralNavigation"],"accessibilityHazard":"none","featureList":["100+ networks with checksum validation","Secret guard that blocks seed phrases and private keys","Step-by-step plan","English and Spanish","CLI with JSON output","Local MCP server for AI agents"]}</script>
 <style>
 /* Bunker styles.
    Identity: poured concrete neutrals, one cobalt for actions, three status colors for locks.
@@ -557,7 +557,7 @@ dd { color: var(--muted); font-size: 0.93rem; }
       <a href="https://github.com/nosistech/nosis-bunker" rel="noopener noreferrer" target="_blank"><span data-lang="en">Source code</span><span data-lang="es" lang="es" hidden>Código fuente</span></a>
       <a href="mailto:info@nosistech.com">info@nosistech.com</a>
     </nav>
-    <p>Bunker by NosisTech. Created by Carlos A. Paredes Vargas, <a href="https://nosistech.com" rel="noopener noreferrer" target="_blank">NosisTech LLC</a>. Apache License 2.0. Version 1.2.1.</p>
+    <p>Bunker by NosisTech. Created by Carlos A. Paredes Vargas, <a href="https://nosistech.com" rel="noopener noreferrer" target="_blank">NosisTech LLC</a>. Apache License 2.0. Version 1.2.2.</p>
   </div>
 </footer>
 <script>
@@ -1352,14 +1352,16 @@ function detectMoveOrStarknet(a) {
       'Flow stores account keys in public on chain. You can change the keys without moving funds.');
   }
   if (/^0x[0-9a-fA-F]{64}$/.test(a)) {
-    // Starknet addresses are field elements below 2^251, so the first hex digit is 0 to 7.
-    const starknetPossible = parseInt(a[2], 16) <= 7;
+    // Starknet addresses are below 2^251 (0x08 followed by 62 zeros). In the 64-digit form,
+    // the first hex digit is 0 and the second is 0 to 7 (P-44).
+    const starknetPossible = a[2] === '0' && parseInt(a[3], 16) <= 7;
     const options = starknetPossible ? ['sui', 'aptos', 'iota', 'starknet'] : ['sui', 'aptos', 'iota'];
     return verdict('sui', 'Move or Starknet account', MODEL.HIDDEN_UNTIL_USED,
       'The address comes from a hash, so the key stays hidden until the first transaction. Select the network below.',
       { options });
   }
-  if (/^0x[0-9a-fA-F]{43,63}$/.test(a)) {
+  // A 63-digit value that starts with 8 to f is 2^251 or more, so it cannot be a Starknet address (P-44).
+  if (/^0x[0-9a-fA-F]{43,63}$/.test(a) && !(a.length === 65 && parseInt(a[2], 16) > 7)) {
     return verdict('starknet', 'Starknet account', MODEL.HIDDEN_UNTIL_USED,
       'The address comes from a hash. The key stays hidden until the first transaction deploys the account. Starknet accounts can change their key.');
   }
@@ -1733,7 +1735,7 @@ function detectCanton(a) {
   if (!/^[A-Za-z0-9_.-]{1,185}::1220[0-9a-f]{64}$/.test(a)) return null;
   return verdict('canton', 'Canton party ID', MODEL.ASK_PROVIDER,
     'The party ID ends in a hash of its namespace key. The key itself is shared with the nodes on its synchronizer. Who can see it depends on the network operators.',
-    { askText: 'Ask your validator, custodian or node operator who can read the keys of this party, and if the network can change to new keys.' });
+    { askText: 'Ask your validator, custodian or node operator three questions about this party. Who can read the keys? Can the keys change? Is there a dated plan to move to post-quantum keys?' });
 }
 
 // ---- src/core/c32.js ----
@@ -2715,10 +2717,15 @@ function moveAdvice(e) {
  */
 function waitAdvice(e) {
   const c = e.chain;
-  if ((c === 'btc' || c === 'ltc') && /Taproot/.test(e.type)) {
+  if (c === 'btc' && /Taproot/.test(e.type)) {
     return 'Taproot has no hidden option yet. Keep inscriptions here. Move plain coins to a new SegWit address. Be ready to move to BIP-360 outputs when they activate.';
   }
-  if (c === 'btc' || c === 'ltc') return 'This address type publishes keys by design. Keep long-term savings on a new bc1q address.';
+  // BIP-360 is a Bitcoin proposal, and bc1q is a Bitcoin address. Litecoin gets its own text (P-43).
+  if (c === 'ltc' && /Taproot/.test(e.type)) {
+    return 'Taproot has no hidden option yet. Keep inscriptions here. Move plain coins to a new ltc1q SegWit address.';
+  }
+  if (c === 'btc') return 'This address type publishes keys by design. Keep long-term savings on a new bc1q address.';
+  if (c === 'ltc') return 'This address type publishes keys by design. Keep long-term savings on a new ltc1q address.';
   if (c === 'spark' || c === 'ark') return 'This layer has no hidden address type. Keep spending money here and savings on a new bc1q address on Bitcoin. You can withdraw to Bitcoin at any time.';
   if (c === 'lightning') return 'Lightning keys are public by design. Keep only spending balances in channels. Keep savings on a new bc1q address.';
   if (c === 'sol') return 'A Solana address is its key, so a new address does not hide it. For long-term SOL, the hash-based Winternitz Vault is an option for advanced users. Follow the Solana post-quantum upgrade.';
@@ -2943,7 +2950,8 @@ const ES_SENTENCES = Object.freeze({
   'The party ID ends in a hash of its namespace key.': 'El ID de la parte termina en un hash de su clave de espacio de nombres.',
   'The key itself is shared with the nodes on its synchronizer.': 'La clave misma se comparte con los nodos de su sincronizador.',
   'Who can see it depends on the network operators.': 'Quién puede verla depende de los operadores de la red.',
-  'Ask your validator, custodian or node operator who can read the keys of this party, and if the network can change to new keys.': 'Pregunta a tu validador, custodio u operador de nodo quién puede leer las claves de esta parte, y si la red puede cambiar a claves nuevas.',
+  'Ask your validator, custodian or node operator three questions about this party.': 'Haz tres preguntas sobre esta parte a tu validador, custodio u operador de nodo.',
+  'Who can read the keys? Can the keys change? Is there a dated plan to move to post-quantum keys?': '¿Quién puede leer las claves? ¿Pueden cambiar las claves? ¿Hay un plan con fechas para pasar a claves poscuánticas?',
   // Not a wallet, unknown, errors
   'This is a Nostr identity key on the same curve as Bitcoin.': 'Esta es una clave de identidad de Nostr en la misma curva que Bitcoin.',
   'It holds no funds.': 'No guarda fondos.',
@@ -2982,9 +2990,11 @@ const ES_SENTENCES = Object.freeze({
   'Taproot has no hidden option yet.': 'Taproot aún no tiene una opción oculta.',
   'Keep inscriptions here.': 'Deja aquí las inscripciones.',
   'Move plain coins to a new SegWit address.': 'Mueve las monedas sin inscripciones a una dirección SegWit nueva.',
+  'Move plain coins to a new ltc1q SegWit address.': 'Mueve las monedas sin inscripciones a una dirección SegWit ltc1q nueva.',
   'Be ready to move to BIP-360 outputs when they activate.': 'Prepárate para pasar a salidas BIP-360 cuando se activen.',
   'This address type publishes keys by design.': 'Este tipo de dirección publica claves por diseño.',
   'Keep long-term savings on a new bc1q address.': 'Guarda los ahorros de largo plazo en una dirección bc1q nueva.',
+  'Keep long-term savings on a new ltc1q address.': 'Guarda los ahorros de largo plazo en una dirección ltc1q nueva.',
   'This layer has no hidden address type.': 'Esta capa no tiene un tipo de dirección oculta.',
   'Keep spending money here and savings on a new bc1q address on Bitcoin.': 'Deja aquí el dinero para gastar y los ahorros en una dirección bc1q nueva en Bitcoin.',
   'You can withdraw to Bitcoin at any time.': 'Puedes retirar a Bitcoin en cualquier momento.',

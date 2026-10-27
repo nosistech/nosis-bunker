@@ -12,6 +12,7 @@ import { base32Encode } from '../src/core/base32.js';
 import { crc32 } from '../src/core/crc32.js';
 import { utf8 } from '../src/core/bytes.js';
 import { crc16Xmodem } from '../src/core/crc16.js';
+import { detectBase58 } from '../src/networks/base58-family.js';
 
 const fixtures = JSON.parse(readFileSync(new URL('./fixtures/addresses.json', import.meta.url), 'utf8')).cases;
 const liquid = JSON.parse(readFileSync(new URL('./fixtures/liquid-reference.json', import.meta.url), 'utf8'));
@@ -126,9 +127,17 @@ test('each detector answers for the expected inputs (pipeline order)', () => {
 });
 
 test('wrong encodings and bad headers are reported as checksum failures, never as another network', () => {
-  const sol = 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t5'; // a Bech32 typo that is 43 Base58 characters long (P-37)
-  assert.equal(classify(sol).type, 'Checksum failed');
-  assert.match(classify(sol).why, /Bech32/);
+  const typo = 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t5'; // a Bech32 typo with a wrong checksum (P-37)
+  assert.equal(classify(typo).type, 'Checksum failed');
+  assert.match(classify(typo).why, /Bech32/);
+  // P-37: the DigiByte sample has 43 characters that are all Base58. With one changed character, the
+  // Solana rule alone accepts it (32 bytes). The Bech32 shape rule must stop the pipeline first.
+  const dgb = bech('dgb', bytes(20), 'bech32', 0);
+  const dgbTypo = dgb.slice(0, 5) + 'q' + dgb.slice(6);
+  assert.notEqual(dgbTypo, dgb);
+  assert.equal((detectBase58(dgbTypo) || {}).chain, 'sol');
+  assert.equal(classify(dgbTypo).type, 'Checksum failed');
+  assert.match(classify(dgbTypo).why, /Bech32/);
   const cases = [
     [bech('bc', bytes(20), 'bech32m', 0), /SegWit address \(the encoding/], // version 0 must use Bech32
     [bech('bc', bytes(32), 'bech32', 1), /SegWit address \(the encoding/], // version 1 must use Bech32m
@@ -152,4 +161,15 @@ test('wrong encodings and bad headers are reported as checksum failures, never a
   const ton = Buffer.from([...tonBody, tonCrc >> 8, tonCrc & 255]).toString('base64url');
   assert.equal(classify(ton).type, 'TON test address');
   assert.equal(classify('11111111111111111111111111111111').model, 'unknown', 'the Solana System Program is not a wallet');
+});
+
+test('Starknet is offered only for values below 2^251 (P-44)', () => {
+  const choices = a => classify(a).options || [];
+  assert.ok(choices('0x05' + 'a'.repeat(62)).includes('starknet'));
+  assert.ok(choices('0x07' + 'f'.repeat(62)).includes('starknet'));
+  assert.ok(!choices('0x08' + '0'.repeat(62)).includes('starknet'));
+  // The IOTA fixture starts with 6, so it is far above 2^251.
+  assert.ok(!choices('0x6ff58b444b315dfce46fe44384a0bdcecce41cf818172571bab6ba7136c68a95').includes('starknet'));
+  assert.equal(classify('0x7' + 'f'.repeat(62)).chain, 'starknet');
+  assert.notEqual(classify('0x8' + '0'.repeat(62)).chain, 'starknet');
 });

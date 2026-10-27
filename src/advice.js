@@ -29,10 +29,15 @@ export function moveAdvice(e) {
  */
 export function waitAdvice(e) {
   const c = e.chain;
-  if ((c === 'btc' || c === 'ltc') && /Taproot/.test(e.type)) {
+  if (c === 'btc' && /Taproot/.test(e.type)) {
     return 'Taproot has no hidden option yet. Keep inscriptions here. Move plain coins to a new SegWit address. Be ready to move to BIP-360 outputs when they activate.';
   }
-  if (c === 'btc' || c === 'ltc') return 'This address type publishes keys by design. Keep long-term savings on a new bc1q address.';
+  // BIP-360 is a Bitcoin proposal, and bc1q is a Bitcoin address. Litecoin gets its own text (P-43).
+  if (c === 'ltc' && /Taproot/.test(e.type)) {
+    return 'Taproot has no hidden option yet. Keep inscriptions here. Move plain coins to a new ltc1q SegWit address.';
+  }
+  if (c === 'btc') return 'This address type publishes keys by design. Keep long-term savings on a new bc1q address.';
+  if (c === 'ltc') return 'This address type publishes keys by design. Keep long-term savings on a new ltc1q address.';
   if (c === 'spark' || c === 'ark') return 'This layer has no hidden address type. Keep spending money here and savings on a new bc1q address on Bitcoin. You can withdraw to Bitcoin at any time.';
   if (c === 'lightning') return 'Lightning keys are public by design. Keep only spending balances in channels. Keep savings on a new bc1q address.';
   if (c === 'sol') return 'A Solana address is its key, so a new address does not hide it. For long-term SOL, the hash-based Winternitz Vault is an option for advanced users. Follow the Solana post-quantum upgrade.';
