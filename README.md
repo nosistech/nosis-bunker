@@ -16,6 +16,7 @@ The tool runs only on your device. It does not connect to a wallet. It does not 
 - [Build and test the tool](#build-and-test-the-tool)
 - [Project map](#project-map)
 - [Documentation](#documentation)
+- [Articles](#articles)
 - [Security](#security)
 - [Credit and attribution](#credit-and-attribution)
 - [License and disclaimer](#license-and-disclaimer)
@@ -194,6 +195,24 @@ Every core, network and pipeline module is less than 100 lines. Read [docs/04-ar
 | [10 Agents](docs/10-agents.md) | The CLI, the MCP server, llms.txt and the JSON report. |
 | [11 Accessibility](docs/11-accessibility.md) | WCAG 2.2 AA target, test method and results. |
 | [Writing style](docs/WRITING-STYLE.md) | The writing rules that the docs follow. |
+
+## Articles
+
+The story of the build, in 13 articles on nosistech.com. Read them in this order.
+
+1. [Which of Your Crypto Addresses Show Their Public Key? Bunker Answers in 30 Seconds](https://nosistech.com/bunker-crypto-address-public-key-scanner/)
+2. [The Sealed Box: When a Crypto Address Shows Its Public Key](https://nosistech.com/crypto-address-public-key-exposure-explained/)
+3. [Bitcoin, Ethereum, Solana and 100 More: How Each Network Shows the Public Key](https://nosistech.com/crypto-networks-public-key-exposure-rules/)
+4. [From Pasted Text to a Plan: Inside the Five-Step Engine of Bunker](https://nosistech.com/bunker-detector-pipeline-architecture/)
+5. [One Wrong Character: How Bunker Catches Typos in Crypto Addresses](https://nosistech.com/bunker-checksum-validation-typo-test/)
+6. [Never Paste a Seed Phrase: How Bunker Blocks 19 Kinds of Secrets](https://nosistech.com/bunker-seed-phrase-private-key-guard/)
+7. [A Web Page That Cannot Send Your Data: The Browser Security of Bunker](https://nosistech.com/bunker-content-security-policy-offline-page/)
+8. [Zero Dependencies: How Bunker Keeps Outside Code Out of the Build](https://nosistech.com/bunker-zero-dependencies-supply-chain-security/)
+9. [Taproot, Zcash, Canton and Shared Formats: The Hard Cases in Bunker](https://nosistech.com/bunker-exposure-models-hard-cases/)
+10. [Bunker for AI Agents: A Local CLI and MCP Server With No Web API](https://nosistech.com/bunker-mcp-server-ai-agents/)
+11. [Designing Bunker for Phones, Screen Readers and Two Languages](https://nosistech.com/bunker-ux-accessibility-wcag-spanish/)
+12. [The Bunker Build Log: 46 Problems Fixed and 30 Decisions Recorded](https://nosistech.com/bunker-build-log-problems-decisions/)
+13. [Bunker Against the OWASP MCP Top 10: One Local Server, Checked Item by Item](https://nosistech.com/bunker-owasp-mcp-top-10/)
 
 ## Security
 
