@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Link cards on X, LinkedIn, Slack and Discord show a preview image. The page policy for images is unchanged (ADR-031).
+
 ## 1.2.2 (2026-10-27)
 
 A documentation review compared the docs, the decision records and the tests with the code.

@@ -107,3 +107,4 @@ Version 1.2.1 was a review pass with four separate reviewers, one each for the n
 | 028 | Languages | English engine, Spanish dictionary in the page | English only; two pages; message keys |
 | 029 | Saved preferences | None; system settings and `#es` | localStorage; cookies |
 | 030 | Accessibility | WCAG 2.2 AA with tests and a statement | No target; overlay widget; WCAG 2.1 only |
+| 031 | Social preview | A PNG in `site/`, named by an absolute URL | No image; an image on another host |

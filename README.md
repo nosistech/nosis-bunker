@@ -152,6 +152,7 @@ Read [docs/08-testing.md](docs/08-testing.md) to learn how to read the test resu
 nosis-bunker/
   dist/                  the built page (one file) and its SHA-256 hash
   site/                  the website for bunker.nosistech.com (made by tools/site.js)
+  assets/                social preview source and PNGs (ADR-031)
   src/
     core/                hashes and encodings: SHA-256, SHA-512/256, Keccak, BLAKE2b, Base58, Bech32, ...
     networks/            one small detector for each network family

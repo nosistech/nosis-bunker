@@ -6,7 +6,8 @@
 // Output:
 //   site/index.html                  the page, byte for byte the same as dist/nosis-bunker.html
 //   site/nosis-bunker.html           the same file, for people who want to save it for offline use
-//   site/SHA256SUMS.txt              the hash, so anyone can compare a copy
+//   site/og.png                      the link-card image (copied from assets/og.png)
+//   site/SHA256SUMS.txt              hashes of the page and og.png, so anyone can compare a copy
 //   site/_headers                    HTTP security headers (Cloudflare Pages and Netlify read this file)
 //   site/.well-known/security.txt    how to report a security problem (RFC 9116)
 //   site/robots.txt                  lets search engines and AI agents read the site
@@ -20,6 +21,9 @@ import { llmsTxt, networksJson, sitemapXml } from './agent-files.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const SITE_ORIGIN = 'https://bunker.nosistech.com';
+/** Link-card image. 1.91:1, the size X, LinkedIn, Slack and Discord expect. */
+export const OG_WIDTH = 1200;
+export const OG_HEIGHT = 630;
 /** security.txt must have an end date (RFC 9116). Renew it each year. */
 const SECURITY_TXT_EXPIRES = '2027-10-01T00:00:00.000Z'; // under one year, as RFC 9116 recommends
 /** The date in sitemap.xml. A fixed date keeps the build reproducible. Change it with each release. */
@@ -66,6 +70,23 @@ export function headersFile(csp) {
   ].join('\n');
 }
 
+/**
+ * The committed link-card image. The build checks the PNG header so a wrong file cannot ship.
+ * @returns {Buffer}
+ */
+export function readOgImage() {
+  const buf = readFileSync(join(ROOT, 'assets/og.png'));
+  const png = '89504e470d0a1a0a';
+  if (buf.subarray(0, 8).toString('hex') !== png) throw new Error('site: assets/og.png is not a PNG');
+  if (buf.toString('ascii', 12, 16) !== 'IHDR') throw new Error('site: assets/og.png has no IHDR');
+  const width = buf.readUInt32BE(16);
+  const height = buf.readUInt32BE(20);
+  if (width !== OG_WIDTH || height !== OG_HEIGHT) {
+    throw new Error('site: assets/og.png is ' + width + 'x' + height + '. It must be ' + OG_WIDTH + 'x' + OG_HEIGHT + '.');
+  }
+  return buf;
+}
+
 export function securityTxt() {
   return [
     'Contact: mailto:info@nosistech.com',
@@ -87,8 +108,11 @@ function main() {
   mkdirSync(join(out, '.well-known'), { recursive: true });
   writeFileSync(join(out, 'index.html'), html);
   writeFileSync(join(out, 'nosis-bunker.html'), html);
+  const og = readOgImage();
+  writeFileSync(join(out, 'og.png'), og);
   const digest = createHash('sha256').update(html, 'utf8').digest('hex');
-  writeFileSync(join(out, 'SHA256SUMS.txt'), digest + '  index.html\n' + digest + '  nosis-bunker.html\n');
+  const ogDigest = createHash('sha256').update(og).digest('hex');
+  writeFileSync(join(out, 'SHA256SUMS.txt'), digest + '  index.html\n' + digest + '  nosis-bunker.html\n' + ogDigest + '  og.png\n');
   writeFileSync(join(out, '_headers'), headersFile(csp));
   writeFileSync(join(out, '.well-known/security.txt'), securityTxt());
   writeFileSync(join(out, 'robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: ' + SITE_ORIGIN + '/sitemap.xml\n');

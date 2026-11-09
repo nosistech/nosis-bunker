@@ -10,11 +10,20 @@ The folder `site/` holds the complete website. `tools/site.js` makes it from the
 |---|---|
 | `index.html` | The page. It is byte for byte the same as `dist/nosis-bunker.html`. |
 | `nosis-bunker.html` | The same file, sent as a download, for offline use. |
-| `SHA256SUMS.txt` | The SHA-256 hash of the page. |
+| `og.png` | The link-card image, 1200 by 630 pixels. See [ADR-031](../decisions/ADR-031-social-preview.md). |
+| `SHA256SUMS.txt` | The SHA-256 hash of the page and of `og.png`. |
 | `_headers` | HTTP security headers. Cloudflare Pages and Netlify read this file. |
 | `.well-known/security.txt` | How to report a security problem (RFC 9116). |
 | `robots.txt` | Lets search engines find the page, and points to the sitemap. |
 | `llms.txt`, `networks.json`, `sitemap.xml` | Files for AI agents and search engines. See [docs/10-agents.md](../10-agents.md). |
+
+## Link preview image
+
+`site/og.png` is the picture for link cards on X, LinkedIn, Slack and Discord. Those services download the file on their own. The page does not load it, so the Content Security Policy stays as it is.
+
+The file is a normal image. It is not sent as a download. The download rule applies only to `nosis-bunker.html`. Nothing redirects `/og.png`.
+
+GitHub's repository social preview is a different file: `assets/github-social.png`, 1280 by 640 pixels. Upload it by hand in the repository settings. GitHub does not read the file from the repository.
 
 ## Why headers are necessary
 

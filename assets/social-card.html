@@ -1,0 +1,177 @@
+<!doctype html>
+<!--
+  Source for the social preview images.
+  Run: node tools/render-og.js
+  That writes assets/og.png (1200x630, served as /og.png)
+  and assets/github-social.png (1280x640, for the GitHub social preview).
+  The page does not load this file. tools/site.js copies the PNG into site/.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bunker by NosisTech</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: __WIDTH__px;
+  height: __HEIGHT__px;
+  overflow: hidden;
+  background: #E8EAE5;
+  color: #12161B;
+  font-family: "Archivo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Hidden until the embedded Archivo face is ready, so a screenshot cannot keep a fallback font. */
+body { visibility: hidden; }
+body[data-font="ok"] { visibility: visible; }
+body[data-font="missing"] { visibility: visible; background: #B3261E; }
+.card {
+  width: __WIDTH__px;
+  height: __HEIGHT__px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  background: #E8EAE5;
+}
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 68px 56px 60px 76px;
+  min-width: 0;
+}
+.brand { display: flex; align-items: center; gap: 18px; }
+.glyph {
+  position: relative;
+  flex: none;
+  width: var(--s);
+  height: var(--s);
+  border-radius: calc(var(--s) * 6 / 22);
+  background: var(--glyph);
+}
+.glyph::before, .glyph::after { content: ""; position: absolute; box-sizing: border-box; }
+.glyph::before {
+  left: calc(var(--s) * 8 / 22);
+  right: calc(var(--s) * 8 / 22);
+  top: calc(var(--s) * 4 / 22);
+  height: calc(var(--s) * 7 / 22);
+  border: calc(var(--s) * 2 / 22) solid var(--cut);
+  border-bottom: 0;
+  border-radius: calc(var(--s) * 5 / 22) calc(var(--s) * 5 / 22) 0 0;
+}
+.glyph::after {
+  left: calc(var(--s) * 6 / 22);
+  right: calc(var(--s) * 6 / 22);
+  top: calc(var(--s) * 9 / 22);
+  bottom: calc(var(--s) * 5 / 22);
+  border-radius: calc(var(--s) * 2 / 22);
+  background: var(--cut);
+}
+.name {
+  font-weight: 800;
+  font-stretch: 122%;
+  font-size: 78px;
+  line-height: 0.88;
+  letter-spacing: -0.034em;
+}
+.by {
+  margin-top: 8px;
+  font-weight: 650;
+  font-stretch: 104%;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+.line {
+  font-weight: 680;
+  font-stretch: 108%;
+  font-size: 48px;
+  line-height: 1.16;
+  letter-spacing: -0.024em;
+}
+.bottom { display: flex; flex-direction: column; gap: 26px; }
+.facts { list-style: none; display: flex; gap: 34px; }
+.facts li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 680;
+  font-stretch: 104%;
+  letter-spacing: -0.012em;
+  line-height: 1;
+}
+.facts i {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: #136B46;
+  flex: none;
+}
+.url {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: #525A63;
+}
+.panel {
+  background: #0D1013;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-left: 6px;
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: #2238C2;
+}
+.panel .glyph { --s: 220px; --glyph: #E8EAE5; --cut: #0D1013; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="copy">
+    <div class="brand">
+      <span class="glyph" style="--s: 66px; --glyph: #12161B; --cut: #E8EAE5"></span>
+      <div>
+        <div class="name">Bunker</div>
+        <div class="by">by NosisTech</div>
+      </div>
+    </div>
+    <p class="line">See which crypto addresses<br>show their public key</p>
+    <div class="bottom">
+      <ul class="facts">
+        <li><i></i>Free</li>
+        <li><i></i>Open source</li>
+        <li><i></i>Runs offline</li>
+      </ul>
+      <p class="url">bunker.nosistech.com</p>
+    </div>
+  </div>
+  <div class="panel" aria-hidden="true">
+    <span class="glyph"></span>
+  </div>
+</div>
+<script>
+/* Load the embedded Archivo face, then show the card only if "Bunker" is the wide cut.
+   fonts.check() is not enough: it returns true when a fallback face is used. */
+var face = new FontFace("Archivo", 'url("__FONT__")', { weight: "100 900", stretch: "62% 125%" });
+face.load().then(function (loaded) {
+  document.fonts.add(loaded);
+  var probe = document.createElement("span");
+  probe.textContent = "Bunker";
+  probe.style.cssText = "position:absolute;white-space:nowrap;font-family:Archivo;font-weight:800;font-stretch:125%;font-size:100px;line-height:1";
+  document.body.appendChild(probe);
+  var wide = probe.getBoundingClientRect().width > 400;
+  probe.remove();
+  document.body.setAttribute("data-font", wide ? "ok" : "missing");
+}).catch(function () {
+  document.body.setAttribute("data-font", "missing");
+});
+</script>
+</body>
+</html>

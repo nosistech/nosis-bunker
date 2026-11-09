@@ -42,3 +42,4 @@ Status values: **Accepted** (in use), **Proposed** (to confirm), **Replaced** (n
 | [ADR-028](ADR-028-two-languages.md) | English and Spanish, with one engine language | Accepted |
 | [ADR-029](ADR-029-preferences-without-storage.md) | Language and theme switches that store nothing | Accepted |
 | [ADR-030](ADR-030-accessibility.md) | Accessibility: WCAG 2.2 AA, tested, with no overlay | Accepted |
+| [ADR-031](ADR-031-social-preview.md) | Social preview image for link cards | Accepted |

@@ -68,6 +68,26 @@ test('every link in the code gets rel="noopener noreferrer"', () => {
   for (const l of links) assert.ok(l.includes("rel: 'noopener noreferrer'"), l);
 });
 
+test('link cards name an image that the page itself does not load', () => {
+  const image = 'https://bunker.nosistech.com/og.png';
+  const alt = 'Bunker by NosisTech. See which crypto addresses show their public key. Free, open source, and runs offline.';
+  for (const tag of [
+    '<meta property="og:image" content="' + image + '">',
+    '<meta property="og:image:width" content="1200">',
+    '<meta property="og:image:height" content="630">',
+    '<meta property="og:image:alt" content="' + alt + '">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    '<meta name="twitter:title" content="Bunker by NosisTech">',
+    '<meta name="twitter:description" content="See which of your crypto addresses show their public key, and get a calm plan to hide what you can.">',
+    '<meta name="twitter:image" content="' + image + '">',
+    '<meta name="twitter:image:alt" content="' + alt + '">',
+  ]) assert.ok(html.includes(tag), tag);
+  assert.equal(JSON.parse(/<script type="application\/ld\+json">([^<]*)<\/script>/.exec(html)[1]).image, image);
+  // The browser must not fetch the preview. Crawlers request the URL on their own.
+  assert.ok(!/<img\b/i.test(html), 'the page has an img element');
+  assert.ok(!csp.includes('og.png') && csp.includes("img-src data:;"));
+});
+
 test('the build is reproducible', () => {
   assert.equal(buildPage().html, html);
 });

@@ -8,7 +8,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { nodeVersionProblem, PATCHED, PINNED } from '../tools/check-node.js';
 import { buildPage } from '../tools/build.js';
-import { headersFile } from '../tools/site.js';
+import { headersFile, readOgImage, OG_WIDTH, OG_HEIGHT } from '../tools/site.js';
 
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
 
@@ -90,8 +90,24 @@ test('the committed website matches a fresh build', () => {
   assert.equal(readFileSync('site/nosis-bunker.html', 'utf8'), html);
   assert.equal(readFileSync('site/_headers', 'utf8'), headersFile(csp));
   const digest = createHash('sha256').update(html, 'utf8').digest('hex');
-  assert.ok(readFileSync('site/SHA256SUMS.txt', 'utf8').startsWith(digest + '  index.html'));
+  const sums = readFileSync('site/SHA256SUMS.txt', 'utf8');
+  assert.ok(sums.startsWith(digest + '  index.html\n' + digest + '  nosis-bunker.html\n'));
+  const og = readOgImage();
+  assert.ok(readFileSync('site/og.png').equals(og), 'site/og.png must match assets/og.png');
+  const ogDigest = createHash('sha256').update(og).digest('hex');
+  assert.ok(sums.endsWith(ogDigest + '  og.png\n'));
   assert.match(readFileSync('site/.well-known/security.txt', 'utf8'), /^Contact: mailto:.+\n(Contact: .+\n)*Expires: \d{4}-/);
+});
+
+test('the link-card image and the GitHub social image have the sizes those sites ask for', () => {
+  const og = readOgImage();
+  assert.equal(og.readUInt32BE(16), OG_WIDTH);
+  assert.equal(og.readUInt32BE(20), OG_HEIGHT);
+  const gh = readFileSync('assets/github-social.png');
+  assert.equal(gh.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
+  assert.equal(gh.readUInt32BE(16), 1280);
+  assert.equal(gh.readUInt32BE(20), 640);
+  assert.ok(gh.length < 1024 * 1024, 'GitHub rejects a social preview above 1 MB');
 });
 
 test('the website headers are strict', () => {
@@ -99,4 +115,9 @@ test('the website headers are strict', () => {
   for (const need of ["frame-ancestors 'none'", 'X-Content-Type-Options: nosniff', 'Strict-Transport-Security: max-age=63072000', 'no-transform', "connect-src 'none'", '! Access-Control-Allow-Origin']) {
     assert.ok(h.includes(need), need);
   }
+  // og.png must be a normal image. Only the offline page is a download.
+  for (const block of h.split(/\n\n+/)) {
+    if (block.includes('Content-Disposition')) assert.match(block, /\/nosis-bunker/);
+  }
+  assert.ok(!h.includes('/og.png'));
 });
