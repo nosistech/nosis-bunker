@@ -104,6 +104,7 @@ function jsonLd(version) {
     name: 'Bunker by NosisTech',
     alternateName: 'Bunker',
     url: 'https://bunker.nosistech.com/',
+    image: 'https://bunker.nosistech.com/og.png',
     description: 'Offline scanner that shows which crypto addresses expose their public key, with a calm, step-by-step plan to hide what you can. More than 100 networks. Runs on your device and sends nothing.',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'Any modern web browser. The CLI and the MCP server need Node.js 22.23.4 or later.',

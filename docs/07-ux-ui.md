@@ -146,6 +146,7 @@ The value is optional. The tool does not look up prices. The user types a value,
 ## Visual design
 
 - **Palette.** Gray tones like poured concrete, one cobalt blue for actions, and three status colors (red, amber, green). Light and dark modes follow the system setting.
+- **Link card.** A 1200 by 630 picture in those colors, with the same font and the same lock mark. See [ADR-031](decisions/ADR-031-social-preview.md).
 - **Type.** Archivo, embedded ([ADR-024](decisions/ADR-024-embedded-font.md)). Headings use the wide, heavy cut. Body text uses the normal cut. Addresses use the system monospace font. Labels use sentence case.
 - **Status.** Each row has a colored edge, an icon (open lock, closed lock, question mark) and words. The color is never the only signal.
 - **Header.** The Bunker wordmark on the left. The language switch, the theme button and "by NosisTech" on the right.

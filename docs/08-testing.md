@@ -14,8 +14,8 @@ The tests use `node:test`, which is part of Node.js. You do not install anything
 At the end, Node.js shows a summary:
 
 ```text
-# tests 71
-# pass 71
+# tests 73
+# pass 73
 # fail 0
 ```
 
@@ -39,10 +39,10 @@ This line says: the test changed one character of the XRP address, and the tool 
 | `test/networks.test.js` | 57 real public addresses get the correct network and model. One changed character always fails. Sample addresses cover formats with no public example. Wrong encodings, bad headers and bad checksums are reported as such and never as another network (P-37, P-41). Starknet is offered only below 2^251 (P-44). |
 | `test/guard.test.js` | The guard blocks 19 kinds of secrets, in nine forms and languages for seed phrases, and in the forms that tried to slip past it (glued numbering, invisible characters, JSON quotes, credential files). It does not block 8 kinds of real input that look like secrets. Input limits work. |
 | `test/plan.test.js` | The status rules, the order of the plan, and safe explorer links. The Litecoin advice and the provider questions in the plan (P-43, P-45). |
-| `test/security.test.js` | The built page has no network code, no storage, no dangerous DOM calls and no `eval`. The Content Security Policy is strict and its hashes match. Fonts and the tab icon come only from data URLs. The build gives the same file every time. No em dashes in the page or the docs. |
+| `test/security.test.js` | The built page has no network code, no storage, no dangerous DOM calls and no `eval`. The Content Security Policy is strict and its hashes match. Fonts and the tab icon come only from data URLs. Link cards name `og.png`, and the page does not load it. The build gives the same file every time. No em dashes in the page or the docs. |
 | `test/i18n.test.js` | Every engine sentence, every result for the real addresses and their typos, and every plan step has Spanish. Both languages have the same page text. |
 | `test/agent.test.js` | The CLI gives a stable JSON report, the right exit codes, redacts unrecognized text and caps its input. The MCP server answers both protocol generations, lists read-only tools and handles secrets, bad input, oversized and bad messages safely, in both languages. No agent code can use the network, a shell or write files. Tool descriptions contain no hidden text. |
-| `test/supply-chain.test.js` | No npm packages and no install scripts. Code imports only Node.js built-ins and project files. The tools never decompress network data. The Node.js version gate works, and the running Node.js is patched. CI pins and hash-checks Node.js. The committed website matches a fresh build. |
+| `test/supply-chain.test.js` | No npm packages and no install scripts. Code imports only Node.js built-ins and project files. The tools never decompress network data. The Node.js version gate works, and the running Node.js is patched. CI pins and hash-checks Node.js. The committed website matches a fresh build. `site/og.png` matches `assets/og.png`, and the GitHub social image is 1280 by 640. |
 
 ## Where the test addresses come from
 
