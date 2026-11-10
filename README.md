@@ -191,7 +191,7 @@ Every core, network and pipeline module is less than 100 lines. Read [docs/04-ar
 | [07 UX and UI](docs/07-ux-ui.md) | Design choices for the page. |
 | [08 Testing](docs/08-testing.md) | What the tests prove and how to run them. |
 | [09 Glossary](docs/09-glossary.md) | The words in this project. |
-| [Decision records](docs/decisions/README.md) | 30 decisions, each with two or more options. |
+| [Decision records](docs/decisions/README.md) | 31 decisions, each with two or more options. |
 | [Security](docs/security/owasp.md) | OWASP mapping, threat model, supply chain and hosting. |
 | [10 Agents](docs/10-agents.md) | The CLI, the MCP server, llms.txt and the JSON report. |
 | [11 Accessibility](docs/11-accessibility.md) | WCAG 2.2 AA target, test method and results. |
