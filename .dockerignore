@@ -1,0 +1,20 @@
+# The image only needs package.json, mcp/, src/, LICENSE and NOTICE.
+.git
+.github
+.gitattributes
+.editorconfig
+.nvmrc
+.npmrc
+docs
+test
+tools
+cli
+dist
+site
+assets
+audit
+deploy
+*.md
+*.png
+*.html
+glama.json
