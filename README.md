@@ -1,5 +1,7 @@
 # Bunker by NosisTech
 
+[![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/nosistech/nosis-bunker)
+
 Bunker is an offline scanner for crypto addresses. You paste your addresses. The tool shows which addresses show their public key to the world. Then it gives you a calm plan, step by step, to hide what you can.
 
 The tool runs only on your device. It does not connect to a wallet. It does not send or store anything. It knows more than 100 networks. It works in English and Spanish, for people and for AI agents.
@@ -11,6 +13,7 @@ The tool runs only on your device. It does not connect to a wallet. It does not 
 - [Why this tool exists](#why-this-tool-exists)
 - [Use the tool](#use-the-tool)
 - [Use Bunker with AI agents](#use-bunker-with-ai-agents)
+- [Run with Docker](#run-with-docker)
 - [An example](#an-example)
 - [What the results mean](#what-the-results-mean)
 - [Build and test the tool](#build-and-test-the-tool)
@@ -89,6 +92,17 @@ node cli/bunker.js --networks
 ```
 
 Tools: `scan_addresses` and `list_networks`. The website also has [`/llms.txt`](https://bunker.nosistech.com/llms.txt) and [`/networks.json`](https://bunker.nosistech.com/networks.json). Read [docs/10-agents.md](docs/10-agents.md) for the details, the JSON shape and the security rules.
+
+## Run with Docker
+
+You can also start the MCP server in a container. The image needs no environment variables and starts the server on standard input and output.
+
+```text
+docker build -t nosis-bunker .
+docker run -i --rm nosis-bunker
+```
+
+The `-i` flag keeps standard input open, which the protocol needs. The `--rm` flag removes the container when it exits.
 
 ## An example
 
@@ -169,6 +183,7 @@ nosis-bunker/
     ui/                  the page: template.html, styles.css and the page modules
   cli/                   command-line tool for people and agents (JSON output)
   mcp/                   MCP server for AI agents (stdio)
+  Dockerfile             image that starts the MCP server over stdio
   audit/                 accessibility audit script (manual release step)
   tools/                 build, website, files for agents, Node.js version gate, writing check, link check
   test/                  tests and real address fixtures
