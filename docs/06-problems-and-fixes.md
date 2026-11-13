@@ -642,3 +642,21 @@ A documentation review compared the docs, the decision records and the tests wit
 **Fix.** The comment now says what the string is. A second case uses the DigiByte sample address with one changed character. Its 43 characters are all Base58 and decode to 32 bytes, so the Solana rule alone accepts it. The test checks that the pipeline reports a checksum failure first.
 
 **Result.** We removed the Bech32 shape rule of P-37 in a copy of the code. The DigiByte typo then showed as a Solana account, and the test failed. With the rule, the test passes.
+
+## P-47. A global git install left a broken `bunker-mcp` command
+
+**Problem.** `npm install -g github:nosistech/nosis-bunker` added `bunker-mcp` to the PATH. The command did not start. The package folder was a link to a temporary directory, and npm had already deleted that directory.
+
+**Cause.** npm's installer for a git repository runs `npm install` inside the checkout when `package.json` has a script named `build`. A global install passes that global setting to the inner install. The inner install has no package argument, so it installs the checkout directory itself. The checkout is a temporary folder. npm deletes that folder when it finishes. The global package is left as a link to the deleted folder.
+
+**Options.**
+
+| Option | For | Against |
+|---|---|---|
+| A. Keep the script name `build` | The old command stays | The global git install does not start |
+| B. Remove `"private": true` and publish the package on npm | A registry install does not use the git checkout path | The package must stay private |
+| **C. Rename the script so the git installer does not run an inner install** | `npm install -g github:nosistech/nosis-bunker` copies the files and `bunker-mcp` starts | The build command is `npm run dist` |
+
+**Fix.** Option C. The script key is `dist`. It runs the same three commands: the Node.js version gate, the page build and the website build. `"private": true` stays.
+
+**Result.** `test/supply-chain.test.js` fails if a script is named `build`. A global install from git copies the files. npm marks `mcp/server.js` as executable, and the shebang starts Node.js.

@@ -32,7 +32,11 @@ test('the project has no npm dependencies of any kind', () => {
 });
 
 test('package.json has no install-time scripts', () => {
-  for (const k of ['preinstall', 'install', 'postinstall', 'prepare', 'prepublish', 'prepublishOnly', 'prepack', 'postpack']) {
+  // `build` is not an npm lifecycle name, but the git installer still runs
+  // `npm install` inside the checkout when that key exists. A global install
+  // then links the package to the temporary checkout and deletes the checkout,
+  // so `bunker-mcp` never lands on PATH (P-47).
+  for (const k of ['preinstall', 'install', 'postinstall', 'prepare', 'prepublish', 'prepublishOnly', 'prepack', 'postpack', 'build']) {
     assert.ok(!(k in (pkg.scripts || {})), 'script ' + k);
   }
 });
