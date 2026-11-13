@@ -37,6 +37,7 @@ In 2026, attackers took over the accounts of npm maintainers and published bad v
 |---|---|---|---|
 | Zero dependencies | Bad npm packages | `package.json` | `test/supply-chain.test.js` |
 | No install scripts in `package.json` | Code that runs on `npm install` | `package.json` | `test/supply-chain.test.js` |
+| No script named `build` | A global git install that links the package to a deleted temporary folder (P-47) | `package.json` | `test/supply-chain.test.js` |
 | `ignore-scripts=true` in `.npmrc` | Install scripts if somebody adds a package by mistake | `.npmrc` | `test/supply-chain.test.js` |
 | Imports only from `node:` and project files | A hidden package import | all code | `test/supply-chain.test.js` |
 | Node.js version gate | Builds on a Node.js release with known flaws | `tools/check-node.js`, `engines` in `package.json`, `.nvmrc` | `test/supply-chain.test.js` |

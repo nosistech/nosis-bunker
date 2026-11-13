@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Link cards on X, LinkedIn, Slack and Discord show a preview image. The page policy for images is unchanged (ADR-031).
+- Global install: `npm install -g github:nosistech/nosis-bunker` puts `bunker-mcp` on the PATH. The page build script is named `dist`, so the git install does not leave a broken link (P-47).
 
 ## 1.2.2 (2026-10-27)
 

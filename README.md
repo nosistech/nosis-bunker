@@ -71,7 +71,7 @@ Use the **EN / ES** switch and the sun or moon button at the top. The page start
 
 ## Use Bunker with AI agents
 
-The same engine is available to AI agents in two local forms. Both run offline, read only, and need Node.js 22.23.4, 24.22.1 or 26.12.1, or a newer release of the same line (24 is the tested one). Get the code with `git clone https://github.com/nosistech/nosis-bunker.git`. There is no install step.
+The same engine is available to AI agents in two local forms. Both run offline, read only, and need Node.js 22.23.4, 24.22.1 or 26.12.1, or a newer release of the same line (24 is the tested one). Get the code with `git clone https://github.com/nosistech/nosis-bunker.git`. A clone needs no install step.
 
 **Command line (JSON):**
 
@@ -92,6 +92,28 @@ node cli/bunker.js --networks
 ```
 
 Tools: `scan_addresses` and `list_networks`. The website also has [`/llms.txt`](https://bunker.nosistech.com/llms.txt) and [`/networks.json`](https://bunker.nosistech.com/networks.json). Read [docs/10-agents.md](docs/10-agents.md) for the details, the JSON shape and the security rules.
+
+**Install the `bunker-mcp` command**
+
+Install the command from this GitHub repository. The package is private and is not published on npm.
+
+```text
+npm install -g github:nosistech/nosis-bunker
+```
+
+Use Node.js 22.23.4, 24.22.1 or 26.12.1, or a newer release of the same line. Node.js must be on your PATH.
+
+An MCP client can then start Bunker by the command name:
+
+```json
+{
+  "mcpServers": {
+    "bunker": { "command": "bunker-mcp" }
+  }
+}
+```
+
+The command reads standard input. It writes the protocol on standard output. Logs go to standard error. The `node` settings above and the Docker image below still work.
 
 ## Run with Docker
 
@@ -147,14 +169,14 @@ You need Node.js 22.23.4, 24.22.1 or 26.12.1, or a newer release of the same lin
 3. Right-click an empty area and select **Open in Terminal**.
 4. Type `node --version` and press Enter. The result must be `v24.22.1` or a newer 24 release.
 5. Type `npm test` and press Enter. All tests must pass.
-6. Type `npm run build` and press Enter. The tool writes `dist/nosis-bunker.html` and the website folder `site/`.
+6. Type `npm run dist` and press Enter. The tool writes `dist/nosis-bunker.html` and the website folder `site/`.
 
 ### Commands
 
 | Command | What it does |
 |---|---|
 | `npm test` | Runs all tests (`node --test`). |
-| `npm run build` | Checks the Node.js version, then builds `dist/` and `site/`. |
+| `npm run dist` | Checks the Node.js version, then builds `dist/` and `site/`. |
 | `npm run check` | Version check, build, tests and the writing check together. |
 | `npm run check-links` | Opens every explorer link once. This command uses the internet. |
 

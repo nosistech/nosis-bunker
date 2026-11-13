@@ -10,7 +10,7 @@ The tool needs a public home: https://bunker.nosistech.com. Most static hosts ca
 
 | Option | For | Against |
 |---|---|---|
-| A. The host runs `npm run build` | Common; no build files in the repository | Node.js and npm run on the host; the Node.js version on the host is not under our control; the published file can differ from the tested file |
+| A. The host runs `npm run dist` | Common; no build files in the repository | Node.js and npm run on the host; the Node.js version on the host is not under our control; the published file can differ from the tested file |
 | B. CI builds and uploads to the host with a deploy token | Builds in a controlled place | A deploy token in CI; a third-party deploy action or a custom upload script |
 | **C. Commit the built folder `site/`; the host only serves files** | No build and no secrets on the host; the published bytes are the tested bytes; CI proves that `site/` matches a fresh build | Built files in the repository |
 

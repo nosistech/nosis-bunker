@@ -20,7 +20,7 @@ The tools (build, tests, link check) run on Node.js. On October 21, 2026, Node.j
 Option D.
 
 - `tools/check-node.js` lists the first patched release of each supported line: 22.23.4, 24.22.1 and 26.12.1. Odd lines (23, 25) and old lines (20 and older) fail.
-- `npm run build`, `npm run check` and the link check run the gate first. A test also runs it.
+- `npm run dist`, `npm run check` and the link check run the gate first. A test also runs it.
 - CI downloads `node-v24.22.1-linux-x64.tar.xz` from nodejs.org and checks the SHA-256 hash from the official `SHASUMS256.txt`.
 
 ## Consequences

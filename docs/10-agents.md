@@ -34,7 +34,13 @@ git clone https://github.com/nosistech/nosis-bunker.git
 cd nosis-bunker
 ```
 
-There is no install step: the project has no dependencies.
+A clone has no install step. The project has no dependencies. You can also install the commands from GitHub:
+
+```text
+npm install -g github:nosistech/nosis-bunker
+```
+
+That puts `bunker` and `bunker-mcp` on your PATH. The package is private and is not published on npm.
 
 ## The CLI
 
@@ -59,7 +65,7 @@ With `--json`, errors are JSON too: `{ "ok": false, "error": { "code": "SECRET_D
 
 ## The MCP server
 
-Transport: stdio. Start command: `node mcp/server.js`. Logs go to standard error only.
+Transport: stdio. Start command from a clone: `node mcp/server.js`. After the global install, the start command is `bunker-mcp`. Logs go to standard error only.
 
 ### Claude Desktop
 
