@@ -80,12 +80,41 @@ test('the Node.js version that runs these tests is patched', () => {
 });
 
 test('CI installs the pinned Node.js build and checks its SHA-256 hash', () => {
-  for (const wf of ['.github/workflows/ci.yml', '.github/workflows/links.yml']) {
+  for (const wf of ['.github/workflows/ci.yml', '.github/workflows/links.yml', '.github/workflows/release.yml']) {
     const y = readFileSync(wf, 'utf8');
     assert.ok(y.includes('node-v' + PINNED + '-linux-x64.tar.xz'), wf + ' pinned version');
     assert.match(y, /sha256sum -c/, wf + ' hash check');
-    assert.ok(!/uses:/.test(y), wf + ' uses a third-party action');
+    if (wf.endsWith('release.yml')) {
+      assert.match(y, /contents: write/);
+      assert.match(y, /id-token: write/);
+      assert.ok(!/secrets\./.test(y), wf + ' must not use a secret');
+      assert.match(y, /cosign sign-blob/);
+      assert.match(y, /dist\/SHA256SUMS\.txt/);
+      assert.match(y, /--certificate-oidc-issuer "https:\/\/token\.actions\.githubusercontent\.com"/);
+      const uses = [...y.matchAll(/^\s*uses:\s*(\S+)/gm)];
+      assert.equal(uses.length, 2, wf + ' action count');
+      for (const m of uses) assert.match(m[1], /^[\w.-]+\/[\w.-]+@[0-9a-f]{40}$/, m[1]);
+    } else {
+      assert.ok(!/uses:/.test(y), wf + ' uses a third-party action');
+    }
   }
+});
+
+test('the page, the README and SECURITY.md tell people how to verify the file', () => {
+  const identity = 'https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/v';
+  const issuer = 'https://token.actions.githubusercontent.com';
+  const command = 'cosign verify-blob --bundle SHA256SUMS.txt.sigstore.json --certificate-identity ' + identity;
+  for (const f of ['README.md', 'SECURITY.md', 'src/ui/template.html']) {
+    const text = readFileSync(f, 'utf8');
+    assert.ok(text.includes('Verify this file') || text.includes('Verify a download'), f);
+    assert.ok(text.includes('https://bunker.nosistech.com/SHA256SUMS.txt'), f);
+    assert.ok(text.includes('sha256sum -c SHA256SUMS.txt'), f);
+    assert.ok(text.includes(command), f);
+    assert.ok(text.includes(issuer), f);
+  }
+  const page = readFileSync('src/ui/template.html', 'utf8');
+  assert.ok(page.includes('>Verify this file</a>'));
+  assert.ok(page.includes('Verifica este archivo'));
 });
 
 test('the committed website matches a fresh build', () => {

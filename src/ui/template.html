@@ -57,6 +57,7 @@
         <li><b>Runs on your device.</b> Works with no internet connection.</li>
         <li><b>Sends nothing.</b> No wallet connection, no tracking, no cookies.</li>
         <li><b>Blocks secrets.</b> A seed phrase or private key is cleared at once.</li>
+        <li><b>Check the file.</b> <a href="https://bunker.nosistech.com/SHA256SUMS.txt" rel="noopener noreferrer" target="_blank">Verify this file</a> before you trust a copy.</li>
       </ul>
     </div>
     <div class="hero-copy" data-lang="es" lang="es" hidden>
@@ -66,6 +67,7 @@
         <li><b>Se ejecuta en tu dispositivo.</b> Funciona sin conexión a internet.</li>
         <li><b>No envía nada.</b> Sin conexión a billeteras, sin rastreo, sin cookies.</li>
         <li><b>Bloquea secretos.</b> Una frase semilla o clave privada se borra al instante.</li>
+        <li><b>Revisa el archivo.</b> <a href="https://bunker.nosistech.com/SHA256SUMS.txt" rel="noopener noreferrer" target="_blank">Verifica este archivo</a> antes de confiar en una copia.</li>
       </ul>
     </div>
 
@@ -119,6 +121,32 @@
   <section class="guide" aria-labelledby="guide-h">
     <h2 id="guide-h" data-i18n="guideH">Field guide</h2>
     <div class="guide-grid">
+      <details id="verify" open>
+        <summary><span data-lang="en">Verify this file</span><span data-lang="es" lang="es" hidden>Verifica este archivo</span></summary>
+        <div class="prose" data-lang="en">
+          <p>A copy of this page can be fake. These three steps show that your file is the real Bunker file.</p>
+          <ol>
+            <li>Download <code>nosis-bunker.html</code>, <code>SHA256SUMS.txt</code> and <code>SHA256SUMS.txt.sigstore.json</code> from the <a href="https://github.com/nosistech/nosis-bunker/releases/latest" rel="noopener noreferrer" target="_blank">GitHub release</a>. The hash list for this site is <a href="https://bunker.nosistech.com/SHA256SUMS.txt" rel="noopener noreferrer" target="_blank">SHA256SUMS.txt</a>.</li>
+            <li>In that folder, run <code>sha256sum -c SHA256SUMS.txt</code>. The result must say OK. On macOS, <code>shasum -a 256 -c SHA256SUMS.txt</code> does the same check. On Windows, run <code>Get-FileHash .\nosis-bunker.html -Algorithm SHA256</code> and compare the hash.</li>
+            <li>Install cosign from the <a href="https://github.com/sigstore/cosign/releases" rel="noopener noreferrer" target="_blank">Sigstore releases</a>. Then run this command. The command must succeed.</li>
+          </ol>
+          <pre><code>cosign verify-blob --bundle SHA256SUMS.txt.sigstore.json --certificate-identity https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/v__VERSION__ --certificate-oidc-issuer https://token.actions.githubusercontent.com SHA256SUMS.txt</code></pre>
+          <p>The certificate identity is <code>https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/v__VERSION__</code>. The OIDC issuer is <code>https://token.actions.githubusercontent.com</code>.</p>
+          <p>Check the signature against the <code>SHA256SUMS.txt</code> from the release. That is the file the signature covers. A release made before this signing step has no signature file.</p>
+        </div>
+        <div class="prose" data-lang="es" lang="es" hidden>
+          <p>Una copia de esta página puede ser falsa. Estos tres pasos muestran que tu archivo es el archivo real de Bunker.</p>
+          <ol>
+            <li>Descarga <code>nosis-bunker.html</code>, <code>SHA256SUMS.txt</code> y <code>SHA256SUMS.txt.sigstore.json</code> de la <a href="https://github.com/nosistech/nosis-bunker/releases/latest" rel="noopener noreferrer" target="_blank">versión en GitHub</a>. La lista de hashes de este sitio está en <a href="https://bunker.nosistech.com/SHA256SUMS.txt" rel="noopener noreferrer" target="_blank">SHA256SUMS.txt</a>.</li>
+            <li>En esa carpeta, ejecuta <code>sha256sum -c SHA256SUMS.txt</code>. El resultado debe decir OK. En macOS, <code>shasum -a 256 -c SHA256SUMS.txt</code> hace la misma revisión. En Windows, ejecuta <code>Get-FileHash .\nosis-bunker.html -Algorithm SHA256</code> y compara el hash.</li>
+            <li>Instala cosign desde las <a href="https://github.com/sigstore/cosign/releases" rel="noopener noreferrer" target="_blank">versiones de Sigstore</a>. Luego ejecuta este comando. El comando debe terminar bien.</li>
+          </ol>
+          <pre><code>cosign verify-blob --bundle SHA256SUMS.txt.sigstore.json --certificate-identity https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/v__VERSION__ --certificate-oidc-issuer https://token.actions.githubusercontent.com SHA256SUMS.txt</code></pre>
+          <p>La identidad del certificado es <code>https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/v__VERSION__</code>. El emisor OIDC es <code>https://token.actions.githubusercontent.com</code>.</p>
+          <p>Revisa la firma con el <code>SHA256SUMS.txt</code> de la versión. Esa es la copia que cubre la firma. Una versión publicada antes de este paso de firma no tiene archivo de firma.</p>
+        </div>
+      </details>
+
       <details open>
         <summary><span data-lang="en">Where things stand on October 25, 2026</span><span data-lang="es" lang="es" hidden>Cómo están las cosas al 25 de octubre de 2026</span></summary>
         <div data-lang="en">
@@ -301,6 +329,7 @@
     <p data-lang="en">Bunker reads address formats and your answers. It loads nothing from outside, does not query a blockchain, and does not store or send anything. Explorer links open only when you select them. This is an educational tool. It is not financial, legal or security advice. Examine each address on a block explorer and send a small test amount before you move funds.</p>
     <p data-lang="es" lang="es" hidden>Bunker lee formatos de direcciones y tus respuestas. No carga nada de afuera, no consulta ninguna blockchain y no guarda ni envía nada. Los enlaces al explorador se abren solo cuando los eliges. Es una herramienta educativa. No es asesoría financiera, legal ni de seguridad. Revisa cada dirección en un explorador de bloques y envía un monto pequeño de prueba antes de mover fondos.</p>
     <nav class="foot-links" aria-label="Footer" data-i18n-aria="footerNav">
+      <a href="https://bunker.nosistech.com/SHA256SUMS.txt" rel="noopener noreferrer" target="_blank"><span data-lang="en">Verify this file</span><span data-lang="es" lang="es" hidden>Verifica este archivo</span></a>
       <a href="#accessibility" data-open="accessibility"><span data-lang="en">Accessibility</span><span data-lang="es" lang="es" hidden>Accesibilidad</span></a>
       <a href="#legal" data-open="legal"><span data-lang="en">Legal notice</span><span data-lang="es" lang="es" hidden>Aviso legal</span></a>
       <a href="#agents" data-open="agents"><span data-lang="en">For AI agents</span><span data-lang="es" lang="es" hidden>Para agentes de IA</span></a>
