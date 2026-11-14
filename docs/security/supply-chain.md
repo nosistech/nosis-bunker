@@ -42,10 +42,11 @@ In 2026, attackers took over the accounts of npm maintainers and published bad v
 | Imports only from `node:` and project files | A hidden package import | all code | `test/supply-chain.test.js` |
 | Node.js version gate | Builds on a Node.js release with known flaws | `tools/check-node.js`, `engines` in `package.json`, `.nvmrc` | `test/supply-chain.test.js` |
 | CI installs the official Node.js 24.22.1 build and checks its SHA-256 hash | A changed or old Node.js in CI | `.github/workflows/` | `test/supply-chain.test.js` |
-| No third-party CI actions | A changed action that steals the token | `.github/workflows/` | `test/supply-chain.test.js` |
-| CI token can only read | A stolen token that pushes code | `permissions: contents: read` | review |
+| No third-party actions in the test and link workflows. The release workflow pins its two actions to commit SHAs. | A changed action that steals the token | `.github/workflows/` | `test/supply-chain.test.js` |
+| Test and link tokens can only read. The release token can update the release and request an OIDC token. | A stolen token that pushes code, or a stored signing key | `permissions` in `.github/workflows/` | review |
 | The tools never decompress network data | CVE-2026-111497 and similar decoder flaws | `tools/check-links.js` uses `node:https` and reads only the status code | `test/supply-chain.test.js` |
 | Reproducible build; CI compares `dist/` and `site/` with a fresh build | A changed file in the repository | `.github/workflows/ci.yml` | CI step |
+| Release signature (Sigstore, GitHub OIDC, no signing key) | A checksum file swapped after publication | `.github/workflows/release.yml` | The release job checks the signature before upload |
 | The font file has a pinned SHA-256 hash | A changed font file | `tools/build.js` | build |
 | CSP script and style hashes | A changed script or style in the page | the page | `test/security.test.js` |
 | The host runs no build | A bad package or Node.js on the host | `site/` is committed | ADR-025 |
@@ -56,7 +57,7 @@ In 2026, attackers took over the accounts of npm maintainers and published bad v
 2. Install the new LTS version on your computer.
 3. In `tools/check-node.js`, change `PATCHED` and `PINNED`.
 4. In `.nvmrc`, write the new version.
-5. In both workflow files, change the version and the SHA-256 hash. Copy the hash from `https://nodejs.org/dist/v<version>/SHASUMS256.txt`.
+5. In `ci.yml`, `links.yml` and `release.yml`, change the version and the SHA-256 hash. Copy the hash from `https://nodejs.org/dist/v<version>/SHASUMS256.txt`.
 6. Run `npm run check`.
 
 ## What to do if you think a build computer is compromised

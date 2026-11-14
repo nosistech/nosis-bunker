@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Release files: the release workflow signs `SHA256SUMS.txt` with Sigstore. The page, the README and SECURITY.md show how to check the file.
 - Link cards on X, LinkedIn, Slack and Discord show a preview image. The page policy for images is unchanged (ADR-031).
 - Global install: `npm install -g github:nosistech/nosis-bunker` puts `bunker-mcp` on the PATH. The page build script is named `dist`, so the git install does not leave a broken link (P-47).
 

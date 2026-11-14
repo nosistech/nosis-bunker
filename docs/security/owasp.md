@@ -53,9 +53,9 @@ The page has no server, no login, no session, no file upload and no API. Many OW
 | Risk | Control |
 |---|---|
 | Dependency chain abuse | No dependencies. |
-| Poisoned pipeline execution | No third-party actions; read-only token; no secrets in CI. |
-| Insufficient credential hygiene | The workflow uses only the default token with `contents: read`. |
-| Improper artifact integrity validation | CI fails if `dist/` differs from a fresh build. Users verify the SHA-256 hash. |
+| Poisoned pipeline execution | The test and link workflows use no third-party actions and a read-only token. The release workflow pins two actions to commit SHAs and stores no secret. |
+| Insufficient credential hygiene | The test and link workflows use the default token with `contents: read`. The release workflow adds `contents: write` and `id-token: write`. It stores no signing key. |
+| Improper artifact integrity validation | CI fails if `dist/` differs from a fresh build. The release workflow signs `SHA256SUMS.txt`. Users check the hash and the signature. |
 
 ## What we test in a browser
 
