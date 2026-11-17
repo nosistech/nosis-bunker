@@ -161,9 +161,11 @@ export function buildPage() {
     "trusted-types 'none'",
   ].join('; ');
   const template = readFileSync(join(ROOT, 'src/ui/template.html'), 'utf8');
-  for (const p of ['__CSP__', '__STYLES__', '__SCRIPT__', '__FAVICON__', '__VERSION__', '__JSONLD__']) {
+  for (const p of ['__CSP__', '__STYLES__', '__SCRIPT__', '__FAVICON__', '__JSONLD__']) {
     if (template.split(p).length !== 2) fail('template must contain ' + p + ' exactly once');
   }
+  // The version is the footer number and the Sigstore certificate identity, in both languages.
+  if (template.split('__VERSION__').length < 2) fail('template must contain __VERSION__');
   // split/join, not replace(): a "$" in the code must not act as a replacement pattern.
   const html = template.split('__FAVICON__').join(favicon).split('__VERSION__').join(version).split('__JSONLD__').join(jsonld)
     .split('__CSP__').join(csp).split('__STYLES__').join(styles).split('__SCRIPT__').join(script);

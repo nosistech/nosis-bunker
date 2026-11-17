@@ -41,7 +41,7 @@ You do not need to install anything.
 Open <https://bunker.nosistech.com>, or use the file on your own computer:
 
 1. Download the file from <https://bunker.nosistech.com/nosis-bunker.html>. On GitHub, open `dist/nosis-bunker.html` and select the download icon ("Download raw file").
-2. Optional: examine the file hash (see below).
+2. Optional: verify this file (see below).
 3. Double-click the file. It opens in your web browser. If Windows asks which app to use, pick your browser.
 4. Paste your addresses, one on each line. You can put a label after a space.
 5. Select **Scan addresses**.
@@ -50,20 +50,41 @@ Open <https://bunker.nosistech.com>, or use the file on your own computer:
 
 The tool works with no internet connection. You can turn on airplane mode before you open the file.
 
-### Examine the file hash (Windows)
+### Verify this file
 
-The hash proves that your file is the same as the file in this repository.
+A copy of the file can be fake. The hash shows that your file matches the published file. The signature shows that the release workflow signed that hash.
 
-1. Open your Downloads folder in File Explorer. Right-click an empty area and select **Open in Terminal**.
-2. Type this command and press Enter:
+1. Download `nosis-bunker.html`, `SHA256SUMS.txt` and `SHA256SUMS.txt.sigstore.json` from the GitHub release for that version: <https://github.com/nosistech/nosis-bunker/releases/latest>. The hash list for the live site is <https://bunker.nosistech.com/SHA256SUMS.txt>.
+2. Check the hash in that folder. The check must succeed.
+
+   Linux:
+
+   ```text
+   sha256sum -c SHA256SUMS.txt
+   ```
+
+   macOS:
+
+   ```text
+   shasum -a 256 -c SHA256SUMS.txt
+   ```
+
+   Windows, in PowerShell:
 
    ```powershell
    Get-FileHash .\nosis-bunker.html -Algorithm SHA256
    ```
 
-3. Compare the result with the value in `dist/SHA256SUMS.txt` or at <https://bunker.nosistech.com/SHA256SUMS.txt>. The two values must be the same. Letter case does not matter.
+   Compare the Windows result with the hash in `SHA256SUMS.txt`. Letter case does not matter. The same hash is in `dist/SHA256SUMS.txt`.
+3. Install cosign from <https://github.com/sigstore/cosign/releases>. Then run this command. Put the version of the file in place of `X.Y.Z`. The command must succeed.
 
-On macOS or Linux, use `shasum -a 256 nosis-bunker.html`.
+   ```text
+   cosign verify-blob --bundle SHA256SUMS.txt.sigstore.json --certificate-identity https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/vX.Y.Z --certificate-oidc-issuer https://token.actions.githubusercontent.com SHA256SUMS.txt
+   ```
+
+The certificate identity is `https://github.com/nosistech/nosis-bunker/.github/workflows/release.yml@refs/tags/vX.Y.Z`. The OIDC issuer is `https://token.actions.githubusercontent.com`.
+
+Check the signature against the `SHA256SUMS.txt` from the release. That is the file the signature covers. A release made before this signing step has no signature file. The hash check still works for that release.
 
 ### Language and theme
 
@@ -258,7 +279,7 @@ Read [SECURITY.md](SECURITY.md). In short:
 
 - The page has a strict Content Security Policy with script and style hashes. It blocks all network connections.
 - The code uses no `innerHTML` and no `eval`. Tests fail the build if this changes.
-- The project has zero dependencies. The CI uses no third-party actions.
+- The project has zero dependencies. The test and link workflows use no third-party actions. The release workflow pins its actions to commit SHAs and signs the checksum with Sigstore.
 - The build tools run only on a patched Node.js, and the CLI and the MCP server warn on one. CI installs an exact Node.js build and checks its hash. See [supply chain](docs/security/supply-chain.md).
 - The website is a prebuilt folder. The host runs no build. See [hosting](docs/security/hosting.md).
 

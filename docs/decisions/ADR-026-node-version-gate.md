@@ -25,5 +25,5 @@ Option D.
 
 ## Consequences
 
-- After each Node.js security release, update the table, `.nvmrc` and the two workflow files. The steps are in [supply-chain.md](../security/supply-chain.md).
+- After each Node.js security release, update the table, `.nvmrc`, `ci.yml`, `links.yml` and `release.yml`. The steps are in [supply-chain.md](../security/supply-chain.md).
 - The page itself does not change. The browser never runs Node.js.

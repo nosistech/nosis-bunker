@@ -25,6 +25,7 @@ Option C. See [.github/workflows/ci.yml](../../.github/workflows/ci.yml).
 
 ## Consequences
 
-- Each workflow sets `permissions: contents: read`.
+- The test workflow and the link workflow set `permissions: contents: read`. They use no third-party actions.
 - CI builds the page, runs the tests, runs the writing check, and fails if the committed `dist/` file differs from a fresh build.
 - A weekly workflow checks the explorer links ([ADR-014](ADR-014-explorer-links.md)).
+- The release workflow is the exception. It sets `contents: write` and `id-token: write`. It pins `actions/checkout` and `sigstore/cosign-installer` to full commit SHAs. It signs `dist/SHA256SUMS.txt` with `cosign sign-blob` and the GitHub OIDC token. It stores no signing key. The build still uses the pinned Node.js tarball.
