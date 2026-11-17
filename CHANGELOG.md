@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.3 (2026-11-17)
+
+The version is 1.2.3. The page shows that version in the Sigstore certificate identity.
 
 - Release files: the release workflow signs `SHA256SUMS.txt` with Sigstore. The page, the README and SECURITY.md show how to check the file.
 - Link cards on X, LinkedIn, Slack and Discord show a preview image. The page policy for images is unchanged (ADR-031).
